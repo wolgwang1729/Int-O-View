@@ -84,7 +84,7 @@ function App() {
   };
 
   const getresponse = async()=>{
-    const res = await axios.post('http://localhost:3000/getResponse',{query : transcript})
+    const res = await axios.post('http://localhost:3000/api/v1/user/callModel',{query : transcript})
     setResponse(res.data.message)
   }
 

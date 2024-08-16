@@ -1,0 +1,29 @@
+# Ignore artifacts:
+build
+coverage
+dist
+
+# Ignore all node_modules folders
+node_modules
+
+# Ignore logs
+*.log
+
+# Ignore environment variable files
+.env
+
+# Ignore specific files
+package-lock.json
+yarn.lock
+
+# Ignore all files in specific directories
+public/
+static/
+
+# Ignore specific file extensions
+*.min.js
+*.bundle.js
+
+# Ignore specific configuration files
+.prettierrc
+.prettierignore
