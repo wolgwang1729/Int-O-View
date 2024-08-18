@@ -1,5 +1,5 @@
 import {v2 as cloudinary} from 'cloudinary'
-import {ApiError} from './ApiError.js'
+import {ApiError} from './apiError.js'
 import fs from 'fs'
 
 cloudinary.config({
@@ -28,13 +28,13 @@ const uploadOnCloudinary = async (localFilePath)=>{
             throw new ApiError(500,"couldn't upload on cloudinary")
         }
 
-        fs.unlinkSync(localFilePath)
+        // fs.unlinkSync(localFilePath)
         return response
 
 
     } catch (error) {
 
-        fs.unlinkSync(localFilePath)
+        // fs.unlinkSync(localFilePath)
         if (error instanceof ApiError){
             throw error
         }
