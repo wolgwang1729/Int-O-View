@@ -7,7 +7,7 @@ import axios from 'axios'
 import jwt from 'jsonwebtoken'
 
 
-
+const perviousResponses = {}
 const createUser = asyncHandler(async (req, res)=>{
     
     const { fullName, email, phone, post } = req.body
@@ -102,8 +102,10 @@ const callModel = asyncHandler(async (req, res)=>{
         withCredentials : true
     })
 
-    res.json({
-        message : response.data.message
+    perviousResponses[query] = response.data.message
+
+    res.json({ 
+        message : perviousResponses
     })
 
 })
