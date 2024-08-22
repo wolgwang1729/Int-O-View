@@ -111,7 +111,7 @@ function verifyOtp(){
             <div>
                 <button onClick={()=>navigate("/")}>Home</button>
             </div>
-            <form onSubmit={handleSubmit} className="p-48 relative ">
+            <form onSubmit={handleSubmit} className="p-36 relative ">
                 <div id="name_inp" className="ml-6 text-center mt-5 w-full">
                     <div className="-ml-32 font-bold font-serif text-xl">Candidate's Name</div>
                     <input type="text" className="border-2 rounded-lg border-black border-solid w-80 mt-2" name="name" value={name} id="cand-name" placeholder="Enter Candidate's name" onInput={handleNameChange} required/>
