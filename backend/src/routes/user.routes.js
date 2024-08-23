@@ -1,9 +1,14 @@
 import {Router} from 'express'
-import { callModel, createUser } from '../controllers/user.controllers.js'
+import { callModel, createUser, sendOtp, uploadResume, verifyOtp } from '../controllers/user.controllers.js'
 import {isAuthenticated } from '../middlewares/auth.middleware.js'
 import { upload } from '../middlewares/multer.middleware.js'
 
 const router = Router()
+
+router.route("/sendOtp").post(sendOtp)
+router.route("/verifyOtp").post(verifyOtp)
+
+router.route("/uploadResume").post(upload.single("resume"),uploadResume)
 
 router.route("/createUser").post(upload.fields([
     {
@@ -17,7 +22,7 @@ router.route("/createUser").post(upload.fields([
     }
 ]),createUser)
 
-router.route("/callModel").post(isAuthenticated,callModel)
+router.route("/callModel").post(callModel)
 
 export default router
 

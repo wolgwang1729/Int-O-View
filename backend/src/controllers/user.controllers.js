@@ -5,9 +5,116 @@ import { User } from '../models/user.model.js'
 import { uploadOnCloudinary } from '../utils/cloudinary.js'
 import axios from 'axios'
 import jwt from 'jsonwebtoken'
+import { OtpVerification } from '../models/otpVerification.model.js'
+import { nodemailerService } from '../utils/nodemailer.js'
+import fs from 'fs'
+import FormData from 'form-data'
 
 
-const perviousResponses = {}
+const sendOtp = asyncHandler(async(req, res)=>{
+
+    const { email } = req.body
+
+    const otp = Math.floor(Math.random()*9000 + 1000).toString()
+
+    const user = await OtpVerification.findOne({email})
+
+    if (user){
+        throw new ApiError(400, "user already exist")
+    }
+
+    const resFromDb = await OtpVerification.create({
+        email,
+        otp
+    })
+
+    if (!resFromDb){
+        throw new ApiError(500, "could not set set otp")
+    }
+
+    const options = {
+        from : `Inter-vue <${process.env.MAIL}>`,
+        to : email,
+        subject : "Email Verification",
+        html : `
+            <html>
+                <body>
+                    <h1>Email Verification</h1>
+                    <p>Thank you for using our service. Here is your otp.Please do not share it with anyone.</p>
+                    <h3><b>${otp}</b></h3>
+                    <p>If you did not requested for this, please ignore this message</p>
+                </body>
+            </html>
+
+        `
+    }
+
+    await nodemailerService.sendMail(options)
+
+    res.json(
+        new ApiResponse(200, {}, "otp sent successfully")
+    )
+
+
+
+})
+
+const verifyOtp = asyncHandler(async(req, res)=>{
+
+    const {otp, email} = req.body
+
+    const user = await OtpVerification.findOne({email})
+
+    if (!user){
+        throw new ApiError(404, "email not found")
+    }
+    if (user.isVerified){
+        throw new ApiError(400, "User already verified")
+    }
+
+    if (otp !== user.otp){
+        throw new ApiError(400, "wrong otp sent")
+    }
+
+    user.isVerified = true
+    user.save()
+
+    res.json(
+        new ApiResponse(200,{},"user verified successfully")
+    )
+
+})
+
+const uploadResume = asyncHandler(async (req, res) => {
+    const resumeLocalPath = req.file.path;
+
+    if (!fs.existsSync(resumeLocalPath)) {
+        throw new ApiError(400, "resume not sent");
+    }
+
+    // Create a form data object
+    const formData = new FormData();
+    formData.append('resume', fs.createReadStream(resumeLocalPath)); // Ensure the key is 'resume'
+
+    try {
+        const response = await axios.post(`${process.env.FLASK_URL}/upload`, formData, {
+            headers: {
+                ...formData.getHeaders() // Get headers from form data
+            }
+        });
+    } catch (error) {
+        throw new ApiError(500, error.response.data.message);
+    }
+
+    fs.unlinkSync(resumeLocalPath)
+
+    res.json(
+        new ApiResponse(200, {}, "file uploaded successfully")
+    );
+});
+
+
+
 const createUser = asyncHandler(async (req, res)=>{
     
     const { fullName, email, phone, post } = req.body
@@ -36,6 +143,12 @@ const createUser = asyncHandler(async (req, res)=>{
 
     if (searchUser && searchUser.status !== "pending"){
         throw new ApiError(400, "User already Interviewed !")
+    }
+
+    const userVerifiedByOtp = await OtpVerification.findOne({email})
+
+    if (!userVerifiedByOtp?.isVerified){
+        throw new ApiError(400, "user not verified by otp")
     }
 
     const photoLocalPath = req.files?.photo[0]?.path
@@ -98,14 +211,13 @@ const callModel = asyncHandler(async (req, res)=>{
 
     const { query } = req.body
 
-    const response = await axios.post(process.env.FLASK_URL, { query },{
+    const response = await axios.post(`${process.env.FLASK_URL}/predict`, { query },{
         withCredentials : true
     })
 
-    perviousResponses[query] = response.data.message
 
     res.json({ 
-        message : perviousResponses
+        message : response.data.message
     })
 
 })
@@ -113,5 +225,8 @@ const callModel = asyncHandler(async (req, res)=>{
 
 export {
     callModel,
-    createUser
+    createUser,
+    sendOtp,
+    verifyOtp,
+    uploadResume
 }
