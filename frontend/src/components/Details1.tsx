@@ -200,9 +200,14 @@ export default function Details1() {
 
   return (
     <section>
+      <div id="back" className=" w-7 h-7 mt-2 ml-2 cursor-pointer">
+        <a href="/">
+        <img src="https://cdn-icons-png.flaticon.com/128/93/93634.png"/>
+        </a>
+      </div>
       <div id="rest-div" className="grid grid-cols-1 lg:grid-cols-2">
         <div className=" items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
-        <img className='h-[10vw] w-[22vw] -mt-12 ml-8' src='logo1.jpg'/>
+        <img className='h-[10vw] w-[22vw] -mt-16 ml-8' src='logo1.jpg'/>
 <div id="otp-div" className='hidden w-96 h-48 flex-col justify-center items-center gap-8'>
   <div className="mt-[8vw] xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
     <div className="text-lg mt-12 ml-20 font-bold leading-tight text-black sm:text-4xl">
@@ -246,7 +251,7 @@ export default function Details1() {
     {/* </OTP> */}
 
 
-          <div id="signup-div" className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
+          <div id="signup-div" className=" xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
             
             <h2 className="text-xl font-bold leading-tight text-black sm:text-4xl">Get Started!</h2>
             
@@ -313,7 +318,7 @@ export default function Details1() {
            
           </div>  
         </div>
-        <div className="h-screen w-full border-2 ">
+        <div className="h-screen w-full border-2 -mt-8">
           <img
             className="mx-auto h-full w-full rounded-md object-cover"
             src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80"
