@@ -1,4 +1,5 @@
 import { transform } from 'typescript';
+import plugin from 'tailwindcss';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -20,8 +21,8 @@ export default {
         '0%':{transform:'translateY(100%)',opacity:0},
         '100%':{transform:'translateX(0%)',opacity:1}
       },
-      text_shadow:{
-        'text-shadow':'2px 2px 2px black'
+      textShadow:{
+        lg:'0 8px 16px var(--tw-shadow-color)'
       }
     },
     animation: {
@@ -31,6 +32,18 @@ export default {
     },
   },
   },
-  plugins: [],
+  plugins: [
+    plugin(function({matchUtilities,theme}){
+      matchUtilities(
+        {
+          'text-shadow':(value)=>({
+            textShadow:value,
+          }),
+        },
+        {values:theme('textShadow')}
+        
+      )
+    })
+  ],
 }
 

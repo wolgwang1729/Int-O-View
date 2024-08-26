@@ -10,7 +10,7 @@ function Layout() {
     {/* {location.pathname==="/n"?null:<Header/>} */}
     {location.pathname === "/"?  <Header/>:null}
     <Outlet/>
-    <Footer/>
+    {location.pathname === "/"?  <Footer/>:null}
     </>
   )
 }
