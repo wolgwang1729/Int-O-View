@@ -7,7 +7,6 @@ function Layout() {
   const location = useLocation()
   return (
     <>
-    {/* {location.pathname==="/n"?null:<Header/>} */}
     {location.pathname === "/"?  <Header/>:null}
     <Outlet/>
     {location.pathname === "/"?  <Footer/>:null}
