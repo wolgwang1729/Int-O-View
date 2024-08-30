@@ -25,13 +25,17 @@ background-image: radial-gradient(#eb7d34 2.5px, transparent 0);
  
 `
 
-const Footer = styled.footer`
-background-color: #0B0D17;
-color: #F0F0F0;
-padding: 2rem 2rem;
-text-align: center;
-font-family: 'Arial', sans-serif;
-`;
+// const Heading=styled.section`
+// text-shadow:.5px .5px orange;
+// `
+
+// const Footer = styled.footer`
+// background-color: #0B0D17;
+// color: #F0F0F0;
+// padding: 2rem 2rem;
+// text-align: center;
+// font-family: 'Arial', sans-serif;
+// `;
 
 const Test=styled.section`
 text-shadow:2px 2px cyan
@@ -72,21 +76,24 @@ function Home() {
     }
   })
 
- 
+  // ml-[19vw] w-[68vw] rounded-md
   
 // drop-shadow-[2px_2px-var(--tw-shadow-color)] shadow-blue-600
   return (
     <div>
-      <div className='flex w-full -mt-4'>
-        <div className='pt-20 animate-slideInFromLeft flex ml-5 mt-12 w-[60vw] h-screen'>
+      {/* <div className='w-screen mt-  bg-gradient-to-t  from-green-950 from-50% via-blue-800 to-green-700 to-60% h-10'>
+          <p className='font-bold ml-[20vw] font-mono absolute z-10 text-[26px] text-slate-200'><Heading>Your Pathway to Joining India’s Elite Defence Research Team</Heading></p>
+        </div> */}
+      <div className='flex w-full -mt-6'>
+        
+        <div className='pt-20 animate-slideInFromLeft flex  mt-12 w-[60vw] h-screen'>
           <Imag className='w-28 h-28 -mt-28'>
             {/* <div className=''></div> */}
           </Imag>
-          <img src='/drd2.jpg' className='opacity-90 z-100 w-[43vw] h-[24vw] -ml-20 rounded-xl shadow-xl shadow-red-200'/>
+          <img src='/drd2.jpg' className='opacity-90 border-2 border-green-900 border-solid z-100 w-[43vw] h-[24vw] -ml-20 rounded-xl shadow-xl shadow-red-200'/>
           <Imag className='w-28 h-28 mt-80'>
             {/* <div className=''></div> */}
            </Imag>
-          {/* <p className='font-bold font-serif absolute z-10 text-[26px] text-white mt-72'>Your Pathway to Joining India’s Elite Defence Research Team</p> */}
         </div>
         
         <div className='w-[40vw] h-screen'>
@@ -153,24 +160,7 @@ function Home() {
           <img src='https://cdn-ddhbi.nitrocdn.com/oQUUkmjvDPdPLvhisuibbubwHakMrNcj/assets/images/optimized/rev-e2f8a2e/interviewer.ai/wp-content/uploads/2021/11/Group-33945.jpg'/>
         </div>
       </div>
-      {/* <div id='about' className='ml-[2vw] flex mt-10 text-center w-full' > */}
-        {/* <h1 className='font-bold text-slate-900 text-2xl mb-5 underline'>About</h1> */}
-        {/* <div className='ml-5 mt-32'>
-          <img src='https://cdn-ddhbi.nitrocdn.com/oQUUkmjvDPdPLvhisuibbubwHakMrNcj/assets/images/optimized/rev-e2f8a2e/interviewer.ai/wp-content/uploads/2021/11/Group-33945.jpg'/>
-        </div>
-        <div className='w-[50vw]'>
-          <div className='font-bold font-serif absolute text-[28px] text-slate-950 w-[50vw] '>Why our </div>
-          <div className='text-l text-justify leading-8 p-12 text-slate-600 font-serif  w-[50vw]'>
-            <About>
-            Welcome to Int-O-View, a revolutionary platform that harnesses the power of artificial intelligence to transform the interview preparation process for DRDO candidates. Our mission is to equip future defense professionals with the right tools and insights to excel in their interviews and secure a spot in one of India's most prestigious defense organizations.
-            Our AI-driven platform simulates real-world interview scenarios, offering a unique and personalized experience for each candidate. With advanced natural language processing, our system evaluates your responses, provides instant feedback, and helps you improve your performance in technical, behavioral, and situational questions.
-            Our goal is to make the interview process more accessible and efficient. Whether you're applying for research, engineering, or any other critical position within DRDO, our platform helps you build confidence, identify areas for improvement, and ensure you're fully prepared to impress the interview panel.
-            By utilizing state-of-the-art AI algorithms, we provide detailed insights into your strengths and weaknesses, allowing you to refine your answers and approach. With Int-O-View, you're not just practicing for an interview – you're preparing to make a lasting impact in India's defense landscape.
-            Join us today and take the next step in your journey toward a successful career with DRDO. Let us help you unlock your potential and achieve your dream of serving the nation.
-            </About>
-          </div>
-        </div>
-      </div> */}
+      
       <div className='w-full text-center'>
         <div className='text-2xl font-bold text-center'>
           <p>Why Choose Our Interview Platform?</p>
@@ -211,12 +201,7 @@ function Home() {
         </div>
       </div>
       <div id='footer' className='opacity-0 mt-12'>
-        {/* <FeaturesSection className='mt-20'>
-          <h2>Why Choose Our Interview Platform?</h2>
-          <p>Secure and confidential interview environment.</p>
-          <p>Easy scheduling and real-time notifications.</p>
-          <p>In-depth candidate assessment tools.</p>
-        </FeaturesSection> */}
+       
 
         <div id="contact" className='bg-white text-black border-t-2 border-t-black text-center h-20 p-5'>
           

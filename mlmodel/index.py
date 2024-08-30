@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
-client = Groq(api_key='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')
+client = Groq(api_key='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')
 
 
 @app.route("/predict",methods = ['POST'])
