@@ -1,33 +1,37 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-const initialState = {
+interface UserState {
+    fullName: string | null;
+    email: string | null;
+    photo: string | null;
+    phone: string | null;
+    post: string | null;
+    [key : string] : any
+}
+
+const initialState : UserState = {
     fullName: null,
     email : null,
     photo : null,
     phone : null,
     post : null,
-    status : null,    
 }
+
+const keys = Object.keys(initialState)
 
 const userSlice = createSlice({
     name : 'user',
     initialState,
     reducers : {
-        setDetails : (state, action) => {
-            state.fullName = action.payload.fullName
-            state.email = action.payload.email
-            state.photo = action.payload.photo
-            state.phone = action.payload.phone
-            state.post = action.payload.post
-            state.status = action.payload.status
+        setDetails : (state, action : PayloadAction<Partial<UserState>>) => {
+            keys.forEach((key)=>{
+                state[key] = action.payload[key]??state[key]
+            })
         },
         removeDetails : state => {
-            state.fullName = null
-            state.email = null
-            state.photo = null
-            state.phone = null
-            state.post = null
-            state.status = null
+            keys.forEach((key)=>{
+                state[key] = null
+            })
         }
     }
 })

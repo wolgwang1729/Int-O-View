@@ -1,10 +1,14 @@
-import { useState,ChangeEvent,useEffect,useRef} from "react";
+import { useState,useEffect,useRef} from "react";
 import React from "react";
-import axios from "axios";
+// import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import '../index.css'
 // import styled from "styled-components";
 
 import { ArrowRight } from 'lucide-react'
+import { useDispatch } from "react-redux";
+import { setDetails } from "../features/userSlice";
+import { services } from "../service/service";
 
 // const OTP=styled.section`
 //  --d:11px;
@@ -29,9 +33,13 @@ import { ArrowRight } from 'lucide-react'
 
 export default function Details1() {
   const navigate=useNavigate();
-   const [name,setName]=useState<string>('');
+  const [name,setName]=useState<string>('');
   const [email,setEmail]=useState<string>('');
   const [mobile,setMobile]=useState<string>('');
+  const [errors, setErrors] = useState<string>('')
+  const [sendingOtp, setSendingOtp] = useState<boolean>(false)
+  const dispatch = useDispatch()
+
   // const [otp,setOtp]=useState<string>('');
 
 
@@ -39,6 +47,7 @@ export default function Details1() {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [verifying, setVerifying] = useState<boolean>(false)
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
   const setValue = (e: React.ChangeEvent<HTMLInputElement>, index: number)=>{
       const value=e.target.value;
@@ -89,8 +98,9 @@ export default function Details1() {
     }
   };
   
-  const handleVerify = () => {
-    setVerifying(true);
+  const handleVerify = async () => {
+    setVerifying(true)
+    setErrors("")
   
     for (let i = 0; i < otp.length; i++) {
       if (otp[i] === "") {
@@ -102,159 +112,129 @@ export default function Details1() {
         return;
       }
     }
-    let otpnumber=0;
-    console.log(otp);
-    otp.map(value=>{
-      otpnumber=otpnumber*10+ Number(value);
-    })
-    console.log(otpnumber);
-    axios.post('http://localhost:3000/api/v1/user/verifyOtp',{
-      email:email,
-      otp:otpnumber.toString()
-  })
-  .then(function(response){
-    if(response.status==200){
-      navigate("/details_2");
-    }
-    else{
-      setVerifying(false);
-    }
+
+    try {
       
-  })
-  .catch(function(error){
-    setVerifying(false);
-      console.log(error);
-  })
+      const otpNumber = otp.join("")
+      await services.verifyOtp({email,otp : otpNumber})
+      navigate("/details_2")
+    } catch (error : any) {
+      setErrors(error.message || "unexpected error occured")
+      setVerifying(false)
+    }
 
     
-  }
-
-    useEffect(() => {
-      const firstInput = inputRefs.current[0];
-      if (firstInput) {
-        firstInput.focus();
-      }
-    }, []);
-
-
-  
-  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value.trim());
-    console.log(name);
-  };
-  
-  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-  
-  const handleMobileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setMobile(e.target.value);
-  };
-  
+  }  
   
   
   const isFormValid = (): boolean => {
    
     if(name.trim()===''){
-      window.alert("Please enter name");
+      setErrors("Name field is empty")
       return false;
     }
-    else if(email.trim()===''){
-      window.alert("Please enter email");
+    else if(!emailRegex.test(email)){
+      setErrors("Please enter correct email")
       return false;
     }
     else if(mobile.length!=10){
-      window.alert("Enter valid mobile number");
+      setErrors("Enter valid mobile number");
       return false;
     }
     
     return true;
-  };
-  
+  };  
  
   
-  const handleSubmit = (e: React.FormEvent) => {
-     console.log("hrllo");
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isFormValid()) {
-      // Submit form logic here
-      axios.post('http://localhost:3000/api/v1/user/sendOtp',{
-        email:email
-    })
-    .then(function(response){
-        console.log(`Otp sent successfully : ${response}`);
-    })
-    .catch(function(error){
-        console.log(error);
-    })
+    setErrors("")
+    if (!isFormValid()) return;
+
+    try {
+
+      dispatch(setDetails({email, fullName : name, phone : mobile}))
+      setSendingOtp(true)
+      await services.sendOtp({email})
+      setSendingOtp(false)
+
       let signup_div=document.getElementById("signup-div");
       signup_div?.classList.add("hidden");
       let otp_div=document.getElementById("otp-div");
       otp_div?.classList.remove("hidden");
       otp_div?.classList.add("flex");
       console.log('Form submitted:');
+      const firstInput = inputRefs.current[0];
+      if (firstInput) {
+        firstInput.focus();
+      }
+
+    } catch (error : any) {
+      setSendingOtp(false)
+      setErrors(error.message || "unexpected error occured")
     }
-  };
+
+  }
   
  
 
   return (
-    <section>
-      <div id="back" className=" w-7 h-7 mt-2 ml-2 cursor-pointer">
-        <a href="/">
+    <section className="relative">
+      {/* <div id="back" className=" w-7 h-7 mt-2 ml-2 cursor-pointer">
+        <Link to="/">
         <img src="https://cdn-icons-png.flaticon.com/128/93/93634.png"/>
-        </a>
-      </div>
+        </Link>
+      </div> */}
+      <div className={`loader2 absolute top-[50%] left-[25%] ${sendingOtp?'':'hidden'}`}></div>
       <div id="rest-div" className="grid grid-cols-1 lg:grid-cols-2">
-        <div className=" items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
-        <img className='h-[10vw] w-[22vw] -mt-16 ml-8' src='logo1.jpg'/>
-<div id="otp-div" className='hidden w-96 h-48 flex-col justify-center items-center gap-8'>
-  <div className="mt-[8vw] xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
-    <div className="text-lg mt-12 ml-20 font-bold leading-tight text-black sm:text-4xl">
-      OTP Verification
-    </div>
-    <div className="mt-12 ml-20 font-semibold font-mono"> 
-      Enter Otp received on email
-    </div>
-  </div>
-        <div className='flex gap-1 ml-12'>
-            {
-                otp.map((val, index)=>(
-                    <input
-                    disabled={verifying} 
-                    type="text"
-                    key={index} 
-                    value={val}
-                    onChange={(e)=>{setValue(e,index)}}
-                    onKeyDown={(e)=>{moveToAnotherBox(e,index)}}
-                    onClick={()=>putCursorAtBack(index)}
-                    ref={(input)=>inputRefs.current[index] = input}
-                    className='h-16 -mt-3 aspect-square border-[2px] rounded-md outline-none px-[1.35rem] text-3xl'
-                    />
-                ))
-            }
-        </div>
-        <div>
-        <button 
-            className='bg-cyan-400 ml-12 mt-4 hover:bg-blue-500 text-white rounded-md outline-none focus:bg-cyan-600 w-[21vw] h-10' 
-            ref={buttonRef}
-            onClick={handleVerify}
-            disabled={verifying}
-        >
-            {
-                verifying ? <div className='loader'></div> : <div className='-ml-2 font-bold font-mono text-2xl'>Verify</div>
-            }
-        </button>
-        </div>
-    </div>
+        <div className={`items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24 ${sendingOtp?'opacity-50':''}`}>
+          <img className='h-[10vw] w-[22vw] -mt-16 ml-8' src='logo1.jpg'/>
+          
+          <div id="otp-div" className='w-96 h-48 flex-col justify-center items-center gap-8 hidden'>
+            <div className="mt-[8vw] xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
+              <div className="text-lg mt-12 ml-20 font-bold leading-tight text-black sm:text-4xl">
+                OTP Verification
+              </div>
+              <p className={`ml-20 mt-5 font-bold font-mono text-red-600 ${errors?'block':'hidden'}`}>{errors}</p>
+              <div className={`ml-20 font-semibold font-mono ${errors?'mt-5':'mt-10'}`}> 
+                Enter Otp received on email
+              </div>
+            </div>
+                  <div className='flex gap-1 ml-12'>
+                      {
+                          otp.map((val, index)=>(
+                              <input
+                              type="text"
+                              key={index} 
+                              value={val}
+                              onChange={(e)=>{setValue(e,index)}}
+                              onKeyDown={(e)=>{moveToAnotherBox(e,index)}}
+                              onClick={()=>putCursorAtBack(index)}
+                              ref={(input)=>inputRefs.current[index] = input}
+                              className='h-16 -mt-3 aspect-square border-[2px] rounded-md outline-none px-[1.35rem] text-3xl'
+                              />
+                          ))
+                      }
+                  </div>
+                  <div>
+                  <button 
+                      className='bg-cyan-400 ml-12 mt-4 hover:bg-blue-500 text-white rounded-md outline-none focus:bg-cyan-600 w-[21vw] h-10' 
+                      ref={buttonRef}
+                      onClick={handleVerify}
+                      disabled={verifying}
+                  >
+                    {verifying ? 'Verifying...':'Verify'}
+                  </button>
+                  </div>
+          </div>
   
     {/* </OTP> */}
 
 
           <div id="signup-div" className=" xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
             
-            <h2 className="text-xl font-bold leading-tight text-black sm:text-4xl">Get Started!</h2>
-            
+            {/* <h2 className="text-xl font-bold leading-tight text-black sm:text-3xl">Get Started!</h2> */}
+            <p className={`font-bold font-mono text-red-600 ${errors?'block':'hidden'}`}>{errors}</p>
             <form action="#" method="POST" className="mt-8">
               <div className="space-y-5">
                 <div>
@@ -268,7 +248,8 @@ export default function Details1() {
                       type="text"
                       placeholder="Full Name"
                       id="name"
-                      onChange={handleNameChange}
+                      value={name}
+                      onChange={(e)=>{setName(e.target.value.trim())}}
                     ></input>
                   </div>
                 </div>
@@ -283,7 +264,8 @@ export default function Details1() {
                       type="email"
                       placeholder="Email"
                       id="email"
-                      onChange={handleEmailChange}
+                      value={email}
+                      onChange={(e)=>{setEmail(e.target.value.trim())}}
                     ></input>
                   </div>
                 </div>
@@ -297,10 +279,13 @@ export default function Details1() {
                   <div className="mt-2">
                     <input
                       className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                      type="number"
+                      type="text"
                       placeholder="Mobile Number"
                       id="mobile"
-                      onChange={handleMobileChange}
+                      value={mobile}
+                      onChange={(e)=>{
+                        isNaN(Number(e.target.value))?null:setMobile(e.target.value)
+                      }}
                     ></input>
                   </div>
                 </div>
@@ -325,8 +310,7 @@ export default function Details1() {
             alt=""
           />
           </div>
-        </div> 
-        
+      </div>      
       {/* </div> */}
     </section>
   )

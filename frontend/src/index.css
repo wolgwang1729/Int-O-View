@@ -21,3 +21,25 @@
   @keyframes l27 {
     100% {transform: rotate(1turn)}
 }
+
+/* HTML: <div class="loader"></div> */
+/* HTML: <div class="loader"></div> */
+.loader2 {
+  --d:22px;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  color: #349dda;
+  box-shadow: 
+    calc(1*var(--d))      calc(0*var(--d))     0 0,
+    calc(0.707*var(--d))  calc(0.707*var(--d)) 0 0.5px,
+    calc(0*var(--d))      calc(1*var(--d))     0 1px,
+    calc(-0.707*var(--d)) calc(0.707*var(--d)) 0 1.5px,
+    calc(-1*var(--d))     calc(0*var(--d))     0 2px,
+    calc(-0.707*var(--d)) calc(-0.707*var(--d))0 2.5px,
+    calc(0*var(--d))      calc(-1*var(--d))    0 3px;
+  animation: l27 1s infinite steps(8);
+}
+@keyframes l27 {
+  100% {transform: rotate(1turn)}
+}

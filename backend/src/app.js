@@ -24,8 +24,10 @@ app.use(cookieParser())
 
 //importing routes
 import userRoutes from './routes/user.routes.js'
+import { errorHandler } from './middlewares/errorHandler.middleware.js'
 
 app.use('/api/v1/user',userRoutes)
+app.use(errorHandler)
 
 export {
     app

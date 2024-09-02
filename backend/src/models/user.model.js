@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     },
     post : {
         type : String,
-        enum : ["engineer","scientist"],
+        enum : ["SDE","Ml-Engineer","Junior Research Fellow"],
         required : [true, "post is required"]
     },
     resume : {

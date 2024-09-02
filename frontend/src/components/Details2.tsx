@@ -1,4 +1,8 @@
 import  { useEffect, useState } from 'react'
+import { services } from '../service/service'
+import { useDispatch, useSelector } from 'react-redux'
+import { setDetails } from '../features/userSlice'
+import { useNavigate } from 'react-router-dom'
 
 function Details2() {
   
@@ -8,6 +12,9 @@ function Details2() {
     const [photoName, setPhotoName] = useState<String>("")
     const [resumeName, setResumeName] = useState<String>("")
     const [showButton, setShowButton] = useState<boolean>(false)
+    const reduxData = useSelector((state:any)=>state.user)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [data, setData] = useState<{
       post: string;
@@ -37,8 +44,36 @@ function Details2() {
 
     }
 
-    const handleSubmit = ()=>{
-      
+    const handleSubmit = async()=>{
+      //here i have data with me
+      //i have to do 3 things here
+      //first upload resume
+      //then create user
+      //then add photo and post to redux
+
+
+      try {
+        
+        if (data.resume instanceof File && data.photo instanceof File){
+
+          await services.uploadResume(data.resume)
+
+          const copiedUserData = {...reduxData}
+          delete copiedUserData.photo
+          copiedUserData.post = data.post
+          
+          const response = await services.createUser(copiedUserData,data.resume,data.photo)
+          copiedUserData.photo = response.data.photo
+          dispatch(setDetails(copiedUserData))
+          navigate("/")
+
+        }       
+
+
+      } catch (error) {
+        throw error  
+      }
+
     }
 
     useEffect(() => {
@@ -75,14 +110,14 @@ function Details2() {
                     }
                 </select>
                 <label htmlFor="photo" className='w-full cursor-pointer outline-none'>
-                    <input type="file" name="" id="photo" className='sr-only' onChange={handlePhoto}/>
+                    <input type="file" name="" id="photo" className='sr-only' onChange={handlePhoto} accept='.png, .jpg, .jpeg'/>
                     <div className='w-full bg-red-500 text-white flex justify-center py-2 rounded-lg items-center'>
                         <img src="https://t4.ftcdn.net/jpg/04/81/13/43/360_F_481134373_0W4kg2yKeBRHNEklk4F9UXtGHdub3tYk.jpg" alt="" className='h-12 aspect-auto rounded-lg'/>
                         <h2 className='w-[300px] flex items-center justify-end px-2'>{photoName || "Upload Your Photo"}</h2>
                     </div>
                 </label>
                 <label htmlFor="resume" className='w-full cursor-pointer outline-none'>
-                    <input type="file" name="" id="resume" className='sr-only' onChange={handleResume}/>
+                    <input type="file" name="" id="resume" className='sr-only' onChange={handleResume} accept='.pdf'/>
                     <div className='w-full bg-cyan-500 text-white flex justify-center py-2 rounded-lg items-center'>
                         <img src="https://www.shutterstock.com/shutterstock/photos/496830214/display_1500/stock-vector-upload-cv-file-icon-vector-illustration-isolated-on-white-background-496830214.jpg" alt="" className='h-12 aspect-auto rounded-lg'/>
                         <h2 className='w-[300px] flex items-center justify-end px-2'>{resumeName || "Upload Your Resume"}</h2>
@@ -90,8 +125,9 @@ function Details2() {
                 </label>
             </div>
         </div>
-       {showButton && <button className='absolute z-10 bottom-12 right-20  text-white font-bold font-mono px-6 py-4 rounded-md outline-none'
-        style={{ background: 'linear-gradient(to right, #ef4444, #feb47b)' }}
+       {showButton && <button className='absolute z-10 bottom-12 right-20
+        font-bold font-mono px-6 py-4 rounded-md outline-none border-cyan-800 border-[2.5px] text-cyan-950'
+        // style={{ background: 'linear-gradient(to right, #ef4444, #feb47b)' }}
         onClick={handleSubmit}>Enter Room</button>}
     </div>
   )

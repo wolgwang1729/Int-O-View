@@ -33,7 +33,7 @@ const sendOtp = asyncHandler(async(req, res)=>{
     }
 
     const options = {
-        from : `Inter-vue <${process.env.MAIL}>`,
+        from : `Int-O-View <${process.env.MAIL}>`,
         to : email,
         subject : "Email Verification",
         html : `
@@ -87,6 +87,7 @@ const verifyOtp = asyncHandler(async(req, res)=>{
 
 const uploadResume = asyncHandler(async (req, res) => {
     const resumeLocalPath = req.file.path;
+    console.log(resumeLocalPath)
 
     if (!fs.existsSync(resumeLocalPath)) {
         throw new ApiError(400, "resume not sent");
@@ -112,8 +113,6 @@ const uploadResume = asyncHandler(async (req, res) => {
         new ApiResponse(200, {}, "file uploaded successfully")
     );
 });
-
-
 
 const createUser = asyncHandler(async (req, res)=>{
     

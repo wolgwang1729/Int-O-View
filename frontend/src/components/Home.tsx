@@ -59,7 +59,7 @@ function Home() {
       const triggerPosition = window.innerHeight * 0.9; // Adjust trigger position as needed
       
       if (rect.top <= triggerPosition) {
-        animatedDiv?.classList.add('animate-slideInFromLeft');
+       animatedDiv?.classList.add('animate-slideInFromLeft');
       }
     }
   })
@@ -147,13 +147,13 @@ function Home() {
         <div className='w-[50vw]'>
           <div className='font-bold font-serif absolute text-[28px] text-slate-950 w-[50vw] '>Your Pathway to Joining India’s Elite Defence Research Team</div>
           <div className='text-l text-justify leading-8 p-12 text-slate-600 font-serif  w-[50vw]'>
-            <About>
+            
             Welcome to Int-O-View, a revolutionary platform that harnesses the power of artificial intelligence to transform the interview preparation process for DRDO candidates. Our mission is to equip future defense professionals with the right tools and insights to excel in their interviews and secure a spot in one of India's most prestigious defense organizations.
             Our AI-driven platform simulates real-world interview scenarios, offering a unique and personalized experience for each candidate. With advanced natural language processing, our system evaluates your responses, provides instant feedback, and helps you improve your performance in technical, behavioral, and situational questions.
             Our goal is to make the interview process more accessible and efficient. Whether you're applying for research, engineering, or any other critical position within DRDO, our platform helps you build confidence, identify areas for improvement, and ensure you're fully prepared to impress the interview panel.
             By utilizing state-of-the-art AI algorithms, we provide detailed insights into your strengths and weaknesses, allowing you to refine your answers and approach. With Int-O-View, you're not just practicing for an interview – you're preparing to make a lasting impact in India's defense landscape.
             Join us today and take the next step in your journey toward a successful career with DRDO. Let us help you unlock your potential and achieve your dream of serving the nation.
-            </About>
+          
           </div>
         </div>
         <div className='ml-5 mt-32'>
