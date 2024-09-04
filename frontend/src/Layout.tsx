@@ -1,4 +1,4 @@
-import Header from './components/Header'
+import Header2 from './components/Header2'
 import Footer from './components/Footer'
 import { Outlet } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
@@ -7,7 +7,7 @@ function Layout() {
   const location = useLocation()
   return (
     <>
-    {location.pathname === "/"?  <Header/>:null}
+    {location.pathname === "/"?  <Header2/>:null}
     <Outlet/>
     {location.pathname === "/"?  <Footer/>:null}
     </>

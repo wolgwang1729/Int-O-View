@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
-import { IconRiCameraLine } from './IconRiCameraLine.tsx';
-import { IconRiCameraOffLine } from './IconRiCameraOffline.tsx';
-import { IconRiMicLine } from './IconRiMicLine.tsx';
-import { IconRiMicOffLine } from './IconRiMicOffline.tsx';
+import { IconRiCameraLine } from './IconRiCameraLine';
+import { IconRiCameraOffLine } from './IconRiCameraOffLine';
+import { IconRiMicLine } from './IconRiMicLine';
+import { IconRiMicOffLine } from './IconRiMicOffLine';
+import { TextToSpeech } from 'elevenlabs-node';
 
 declare global {
   interface Window {
@@ -60,22 +61,49 @@ function TestRoom() {
     }
   };
 
-  const speakText = () => {
-    if ('speechSynthesis' in window && response) {
-      const utterance = new SpeechSynthesisUtterance(response);
-      utterance.rate = 1;
-
-      utterance.onstart = () => {
+  const speakText = async () => {
+    if (response) {
+      console.log("great");
+      try {
+        console.log(response);
+        const apiKey = 'sk_c1568c9f363a3852b71a990ed9dca19af361ed6ff30ae446';
+        const url = 'https://api.elevenlabs.io/v1/text-to-speech/1qEiC6qsybMkmnNdVMbK';
+  
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'xi-api-key': apiKey,
+          },
+          body: JSON.stringify({
+            text: response,
+            voice_settings: {
+              stability: 0.5,
+              similarity_boost: 0.5,
+            },
+          }),
+        };
+  
+        const res = await fetch(url, options);
+  
+        if (!res.ok) {
+          throw new Error('Failed to fetch the audio');
+        }
+  
+        const audioUrl = URL.createObjectURL(await res.blob());
+  
+        const audio = new Audio(audioUrl);
+        audio.play();
+  
         setIsGifVisible(true);
-      };
-
-      utterance.onend = () => {
-        setIsGifVisible(false);
-      };
-
-      window.speechSynthesis.speak(utterance);
+        audio.onended = () => setIsGifVisible(false);
+  
+      } catch (error) {
+        console.error('Error speaking text:', error);
+      }
     }
   };
+  
 
   const getResponse = async () => {
     try {
@@ -120,7 +148,7 @@ function TestRoom() {
       <div className="flex justify-between p-4 bg-zinc-800">
         <h2 className="text-2xl font-semibold">
           <img
-          src='logo1.jpg'
+          src='inter-o-view.jpg'
           alt='logo'
           height={'40px'}
           width={'80px'}
@@ -153,13 +181,13 @@ function TestRoom() {
             <div className="relative items-center justify-center w-1/2 max-w-sm overflow-hidden bg-zinc-800 h-72 rounded-3xl">
               {(isGifVisible && !isListening) ? (
                 <img
-                  src="interviewer1.gif"
+                  src="Designer.png"
                   alt="Interviewer"
                   className="object-cover h-full w-fit"
                 />
               ) : (
                 <img
-                  src="interviewer1.png"
+                  src="Designer.png"
                   alt="Interviewer"
                   className="object-cover h-full w-fit "
                 />

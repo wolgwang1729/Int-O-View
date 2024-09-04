@@ -10,12 +10,13 @@ import TestRoom from './components/TestRoom.tsx';
 import Dashboard from './components/Dashboard.tsx';
 import { Provider } from 'react-redux';
 import { store } from './store/store.ts';
+import Home3 from './components/Home3.tsx';
 
 const router=createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout/>}>
-      <Route path='' element={<Home2/>}></Route>
-      <Route path='home' element={<Home/>}></Route>
+      <Route path='' element={<Home3/>}></Route>
+      <Route path='home' element={<Home2/>}></Route>
       <Route path='details_1' element={<Details1/>}></Route>
       <Route path='details_2' element={<Details2/>}></Route>
       <Route path='interview_room' element={<TestRoom/>}></Route>
