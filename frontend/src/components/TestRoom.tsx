@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { IconRiCameraLine } from './IconRiCameraLine';
-import { IconRiCameraOffLine } from './IconRiCameraOffline';
+import { IconRiCameraOffLine } from './IconRiCameraOffline.tsx';
 import { IconRiMicLine } from './IconRiMicLine';
-import { IconRiMicOffLine } from './IconRiMicOffline';
+import { IconRiMicOffLine } from './IconRiMicOffline.tsx';
 import { TextToSpeech } from 'elevenlabs-node';
 import { useNavigate } from 'react-router-dom';
 import logo from '/finalLogo.jpg'
 
 declare global {
   interface Window {
+    SpeechRecognition:any,
     webkitSpeechRecognition: any;
   }
 }
@@ -25,34 +26,118 @@ function TestRoom() {
   const recogRef: any = useRef(null);
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   if (!('webkitSpeechRecognition' in window)) {
+  //     alert("Speech recognition not supported.");
+  //     return;
+  //   }
+
+  //   const recognition = new window.webkitSpeechRecognition();
+  //   recogRef.current = recognition;
+
+  //   recognition.lang = 'en-US';
+  //   recognition.interimResults = false;
+  //   recognition.maxAlternatives = 1;
+
+  //   recognition.onresult = (e: any) => {
+  //     const transcriptResult = e.results[0][0].transcript;
+  //     setTranscript(transcriptResult);
+  //   };
+
+  //   recognition.onspeechend = () => {
+  //     setIsListening(false);
+  //     recognition.stop();
+  //   };
+
+  //   recognition.onerror = () => {
+  //     setIsListening(false);
+  //     recognition.stop();
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  
+  //   if (!SpeechRecognition) {
+  //     alert("Speech recognition not supported in this browser.");
+  //     return;
+  //   }
+  
+  //   const recognition = new SpeechRecognition(); // Use SpeechRecognition here
+  //   recogRef.current = recognition;
+  
+  //   recognition.lang = 'en-US';
+  //   recognition.interimResults = false;
+  //   recognition.maxAlternatives = 1;
+  
+  //   recognition.onstart = () => {
+  //     console.log("Recognition started");
+  //   };
+  
+  //   recognition.onresult = (e:any) => {
+  //     const transcriptResult = e.results[0][0].transcript;
+  //     console.log("Transcript: ", transcriptResult);
+  //     setTranscript(transcriptResult);
+  //   };
+  
+  //   recognition.onspeechend = () => {
+  //     console.log("Speech ended");
+  //     setIsListening(false);
+  //     recognition.stop();
+  //   };
+  
+  //   recognition.onerror = (e:any) => {
+  //     console.error("Error during recognition: ", e.error);
+  //     setIsListening(false);
+  //     recognition.stop();
+  //   };
+  
+  //   recognition.onend = () => {
+  //     console.log("Recognition stopped");
+  //   };
+  // }, []);
+
   useEffect(() => {
     if (!('webkitSpeechRecognition' in window)) {
       alert("Speech recognition not supported.");
       return;
     }
-
+  
     const recognition = new window.webkitSpeechRecognition();
     recogRef.current = recognition;
-
+  
     recognition.lang = 'en-US';
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
-
-    recognition.onresult = (e: any) => {
+  
+    recognition.onstart = () => {
+      console.log("Recognition started");
+    };
+  
+    recognition.onresult = (e:any) => {
       const transcriptResult = e.results[0][0].transcript;
+      console.log("Transcript: ", transcriptResult);
       setTranscript(transcriptResult);
     };
-
+  
     recognition.onspeechend = () => {
+      console.log("Speech ended");
       setIsListening(false);
       recognition.stop();
     };
-
-    recognition.onerror = () => {
+  
+    recognition.onerror = (e:any) => {
+      console.error("Error during recognition: ", e.error);
       setIsListening(false);
       recognition.stop();
+    };
+  
+    recognition.onend = () => {
+      console.log("Recognition stopped");
     };
   }, []);
+  
+  
 
   const startListening = () => {
     if (isListening) {
@@ -138,6 +223,9 @@ const speakText = async (newResponse: string) => {
     speakText(response);
   }, [response]);
   
+  useEffect(() => {
+    speakText();
+  },[response])
 
   const getResponse = async () => {
     try {
@@ -145,7 +233,6 @@ const speakText = async (newResponse: string) => {
       const newResponse = res.data.message;
       setResponse(newResponse);
       setConversationHistory([...conversationHistory, { user: transcript, ai: newResponse }]);
-      
       // speakText();
     } catch (error) {
       console.error('Error fetching response:', error);
@@ -183,9 +270,9 @@ const speakText = async (newResponse: string) => {
       <div className="flex justify-between p-4 bg-zinc-800">
         <h2 className="text-2xl font-semibold">
           <img
-          src={logo}
+          src='logo2_cropped.jpg'
           alt='logo'
-          className='h-12 rounded-lg aspect-auto'
+          className='h-12 rounded-md'
           />
         </h2>
         <button
@@ -223,6 +310,7 @@ const speakText = async (newResponse: string) => {
                   src="interview_room_1_crop.jpg"
                   alt="Interviewer"
                   className="object-cover w-full h-full"
+
                 />
               )}
             </div>

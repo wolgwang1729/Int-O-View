@@ -220,7 +220,7 @@ export default function Details1() {
                   </div>
                   <div>
                   <button 
-                      className='bg-cyan-400 ml-12 mt-4 hover:bg-blue-500 text-white rounded-md outline-none focus:bg-cyan-600 w-[21vw] h-10' 
+                      className='bg-cyan-400 ml-12 mt-4 hover:bg-cyan-300 text-white rounded-md outline-none focus:bg-cyan-600 w-[21vw] h-10' 
                       ref={buttonRef}
                       onClick={handleVerify}
                       disabled={verifying}
