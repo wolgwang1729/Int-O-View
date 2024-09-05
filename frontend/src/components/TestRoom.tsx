@@ -8,6 +8,7 @@ import { TextToSpeech } from 'elevenlabs-node';
 
 declare global {
   interface Window {
+    SpeechRecognition:any,
     webkitSpeechRecognition: any;
   }
 }
@@ -22,34 +23,118 @@ function TestRoom() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const recogRef: any = useRef(null);
 
+  // useEffect(() => {
+  //   if (!('webkitSpeechRecognition' in window)) {
+  //     alert("Speech recognition not supported.");
+  //     return;
+  //   }
+
+  //   const recognition = new window.webkitSpeechRecognition();
+  //   recogRef.current = recognition;
+
+  //   recognition.lang = 'en-US';
+  //   recognition.interimResults = false;
+  //   recognition.maxAlternatives = 1;
+
+  //   recognition.onresult = (e: any) => {
+  //     const transcriptResult = e.results[0][0].transcript;
+  //     setTranscript(transcriptResult);
+  //   };
+
+  //   recognition.onspeechend = () => {
+  //     setIsListening(false);
+  //     recognition.stop();
+  //   };
+
+  //   recognition.onerror = () => {
+  //     setIsListening(false);
+  //     recognition.stop();
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  
+  //   if (!SpeechRecognition) {
+  //     alert("Speech recognition not supported in this browser.");
+  //     return;
+  //   }
+  
+  //   const recognition = new SpeechRecognition(); // Use SpeechRecognition here
+  //   recogRef.current = recognition;
+  
+  //   recognition.lang = 'en-US';
+  //   recognition.interimResults = false;
+  //   recognition.maxAlternatives = 1;
+  
+  //   recognition.onstart = () => {
+  //     console.log("Recognition started");
+  //   };
+  
+  //   recognition.onresult = (e:any) => {
+  //     const transcriptResult = e.results[0][0].transcript;
+  //     console.log("Transcript: ", transcriptResult);
+  //     setTranscript(transcriptResult);
+  //   };
+  
+  //   recognition.onspeechend = () => {
+  //     console.log("Speech ended");
+  //     setIsListening(false);
+  //     recognition.stop();
+  //   };
+  
+  //   recognition.onerror = (e:any) => {
+  //     console.error("Error during recognition: ", e.error);
+  //     setIsListening(false);
+  //     recognition.stop();
+  //   };
+  
+  //   recognition.onend = () => {
+  //     console.log("Recognition stopped");
+  //   };
+  // }, []);
+
   useEffect(() => {
     if (!('webkitSpeechRecognition' in window)) {
       alert("Speech recognition not supported.");
       return;
     }
-
+  
     const recognition = new window.webkitSpeechRecognition();
     recogRef.current = recognition;
-
+  
     recognition.lang = 'en-US';
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
-
-    recognition.onresult = (e: any) => {
+  
+    recognition.onstart = () => {
+      console.log("Recognition started");
+    };
+  
+    recognition.onresult = (e:any) => {
       const transcriptResult = e.results[0][0].transcript;
+      console.log("Transcript: ", transcriptResult);
       setTranscript(transcriptResult);
     };
-
+  
     recognition.onspeechend = () => {
+      console.log("Speech ended");
       setIsListening(false);
       recognition.stop();
     };
-
-    recognition.onerror = () => {
+  
+    recognition.onerror = (e:any) => {
+      console.error("Error during recognition: ", e.error);
       setIsListening(false);
       recognition.stop();
+    };
+  
+    recognition.onend = () => {
+      console.log("Recognition stopped");
     };
   }, []);
+  
+  
 
   const startListening = () => {
     if (isListening) {
@@ -188,7 +273,7 @@ function TestRoom() {
                 />
               ) : (
                 <img
-                  src="interview_room_1.png"
+                  src="interview_room_1_crop.png"
                   alt="Interviewer"
                   className="object-cover h-full w-fit"
                 />
