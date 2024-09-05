@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { IconRiCameraLine } from './IconRiCameraLine';
-import { IconRiCameraOffLine } from './IconRiCameraOffLine';
+import { IconRiCameraOffLine } from './IconRiCameraOffline.tsx';
 import { IconRiMicLine } from './IconRiMicLine';
-import { IconRiMicOffLine } from './IconRiMicOffLine';
+import { IconRiMicOffLine } from './IconRiMicOffline.tsx';
 import { TextToSpeech } from 'elevenlabs-node';
 
 declare global {
@@ -104,6 +104,9 @@ function TestRoom() {
     }
   };
   
+  useEffect(() => {
+    speakText();
+  },[response])
 
   const getResponse = async () => {
     try {
@@ -111,7 +114,7 @@ function TestRoom() {
       const newResponse = res.data.message;
       setResponse(newResponse);
       setConversationHistory([...conversationHistory, { user: transcript, ai: newResponse }]);
-      speakText();
+      // speakText();
     } catch (error) {
       console.error('Error fetching response:', error);
     }
@@ -148,11 +151,9 @@ function TestRoom() {
       <div className="flex justify-between p-4 bg-zinc-800">
         <h2 className="text-2xl font-semibold">
           <img
-          src='inter-o-view.jpg'
+          src='logo2_cropped.jpg'
           alt='logo'
-          height={'40px'}
-          width={'80px'}
-          className='rounded-lg'
+          className='h-12 rounded-md'
           />
         </h2>
         <button
@@ -178,18 +179,18 @@ function TestRoom() {
             </div>
 
             {/* GIF Area */}
-            <div className="relative items-center justify-center w-1/2 max-w-sm overflow-hidden bg-zinc-800 h-72 rounded-3xl">
+            <div className="relative items-center justify-center w-1/2 max-w-sm overflow-hidden bg-slate-950 h-72 rounded-3xl">
               {(isGifVisible && !isListening) ? (
                 <img
-                  src="Designer.png"
+                  src="interview_room.gif"
                   alt="Interviewer"
                   className="object-cover h-full w-fit"
                 />
               ) : (
                 <img
-                  src="Designer.png"
+                  src="interview_room_1.png"
                   alt="Interviewer"
-                  className="object-cover h-full w-fit "
+                  className="object-cover h-full w-fit"
                 />
               )}
             </div>
@@ -232,7 +233,7 @@ function TestRoom() {
         </div>
 
         {/* Right Section with Conversation History */}
-        <div className="flex flex-col flex-1 p-4 bg-zinc-800 rounded-3xl max-w-[600px]">
+        <div className="flex flex-col flex-1 p-4 bg-zinc-800 rounded-3xl max-w-[500px]">
           <h3 className="text-2xl font-semibold">Past Conversations</h3>
           <div className="flex flex-col p-4 mt-2 space-y-4 overflow-y-auto min-h-[560px] max-h-[560px] rounded-2xl bg-zinc-00">
             {conversationHistory.map((conv, index) => (

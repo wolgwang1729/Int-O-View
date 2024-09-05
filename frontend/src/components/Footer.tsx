@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="w-full p-6 md:w-1/2 lg:w-5/12">
           <div className="flex h-full flex-col justify-between">
             <div className="mb-4 inline-flex items-center">
-              <img src={logo1} alt="hrll" className='w-44 aspect-auto'/>
+              <img src="logo2.jpg" alt="hrll" className='w-52 h-32 -ml-4 aspect-auto'/>
             </div>
             <div>
               <p className="mb-4  text-base font-medium">DRDO's Interview Platform</p>

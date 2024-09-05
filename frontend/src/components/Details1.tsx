@@ -1,5 +1,6 @@
 import { useState,useEffect,useRef} from "react";
 import React from "react";
+import { Link } from "react-router-dom";
 // import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import '../index.css'
@@ -188,8 +189,9 @@ export default function Details1() {
       <div className={`loader2 absolute top-[50%] left-[25%] ${sendingOtp?'':'hidden'}`}></div>
       <div id="rest-div" className="grid grid-cols-1 lg:grid-cols-2">
         <div className={`items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24 ${sendingOtp?'opacity-50':''}`}>
-          <img className='h-[10vw] w-[22vw] -mt-16 ml-8' src='logo1.jpg'/>
-          
+          <Link to='/'>
+          <img className='h-[11vw] w-[22vw] -mt-16 ml-16' src='logo2.jpg'/>
+          </Link>
           <div id="otp-div" className='w-96 h-48 flex-col justify-center items-center gap-8 hidden'>
             <div className="mt-[8vw] xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
               <div className="text-lg mt-12 ml-20 font-bold leading-tight text-black sm:text-4xl">
@@ -218,7 +220,7 @@ export default function Details1() {
                   </div>
                   <div>
                   <button 
-                      className='bg-cyan-400 ml-12 mt-4 hover:bg-blue-500 text-white rounded-md outline-none focus:bg-cyan-600 w-[21vw] h-10' 
+                      className='bg-cyan-400 ml-12 mt-4 hover:bg-cyan-300 text-white rounded-md outline-none focus:bg-cyan-600 w-[21vw] h-10' 
                       ref={buttonRef}
                       onClick={handleVerify}
                       disabled={verifying}
