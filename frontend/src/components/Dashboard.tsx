@@ -48,7 +48,7 @@ const Dashboard: React.FC = () => {
   const [data, setData] = useState<DashboardData | null>(null);
 
   useEffect(() => {
-    fetch('http://127.0.0.1:5500/end_interview')
+    fetch('http://127.0.0.1:5000/predict')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');

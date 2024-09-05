@@ -9,7 +9,9 @@ from finalModel import get_response,upload_Resume,intitializeInterviewee
 
 app = Flask(__name__)
 
-# CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+# app.use(cors())
+
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 UPLOAD_FOLDER = 'public'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER

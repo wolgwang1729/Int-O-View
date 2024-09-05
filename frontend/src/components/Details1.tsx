@@ -9,6 +9,7 @@ import { ArrowRight } from 'lucide-react'
 import { useDispatch } from "react-redux";
 import { setDetails } from "../features/userSlice";
 import { services } from "../service/service";
+import { Link } from "react-router-dom";
 
 // const OTP=styled.section`
 //  --d:11px;
@@ -180,7 +181,7 @@ export default function Details1() {
 
   return (
     <section className="relative">
-      {/* <div id="back" className=" w-7 h-7 mt-2 ml-2 cursor-pointer">
+      {/* <div id="back" className="mt-2 ml-2 cursor-pointer w-7 h-7">
         <Link to="/">
         <img src="https://cdn-icons-png.flaticon.com/128/93/93634.png"/>
         </Link>
@@ -188,11 +189,12 @@ export default function Details1() {
       <div className={`loader2 absolute top-[50%] left-[25%] ${sendingOtp?'':'hidden'}`}></div>
       <div id="rest-div" className="grid grid-cols-1 lg:grid-cols-2">
         <div className={`items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24 ${sendingOtp?'opacity-50':''}`}>
-          <img className='h-[10vw] w-[22vw] -mt-16 ml-8' src='logo1.jpg'/>
-          
-          <div id="otp-div" className='w-96 h-48 flex-col justify-center items-center gap-8 hidden'>
+          <Link to="/">
+          <img className='h-24 mb-12 ml-32 -mt-8 w-60' src='finalLogo.jpg'/>
+          </Link>
+          <div id="otp-div" className='flex-col items-center justify-center hidden h-48 gap-8 w-96'>
             <div className="mt-[8vw] xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
-              <div className="text-lg mt-12 ml-20 font-bold leading-tight text-black sm:text-4xl">
+              <div className="mt-12 ml-20 text-lg font-bold leading-tight text-black sm:text-4xl">
                 OTP Verification
               </div>
               <p className={`ml-20 mt-5 font-bold font-mono text-red-600 ${errors?'block':'hidden'}`}>{errors}</p>
@@ -244,7 +246,7 @@ export default function Details1() {
                   </label>
                   <div className="mt-2">
                     <input
-                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex w-full h-10 px-3 py-2 text-sm bg-transparent border border-gray-300 rounded-md placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="text"
                       placeholder="Full Name"
                       id="name"
@@ -260,7 +262,7 @@ export default function Details1() {
                   </label>
                   <div className="mt-2">
                     <input
-                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex w-full h-10 px-3 py-2 text-sm bg-transparent border border-gray-300 rounded-md placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="email"
                       placeholder="Email"
                       id="email"
@@ -278,7 +280,7 @@ export default function Details1() {
                   </div>
                   <div className="mt-2">
                     <input
-                      className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="flex w-full h-10 px-3 py-2 text-sm bg-transparent border border-gray-300 rounded-md placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                       type="text"
                       placeholder="Mobile Number"
                       id="mobile"
@@ -303,9 +305,9 @@ export default function Details1() {
            
           </div>  
         </div>
-        <div className="h-screen w-full border-2 -mt-8">
+        <div className="w-full h-screen -mt-8 border-2">
           <img
-            className="mx-auto h-full w-full rounded-md object-cover"
+            className="object-cover w-full h-full mx-auto rounded-md"
             src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80"
             alt=""
           />

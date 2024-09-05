@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { IconRiCameraLine } from './IconRiCameraLine';
-import { IconRiCameraOffLine } from './IconRiCameraOffLine';
+import { IconRiCameraOffLine } from './IconRiCameraOffline';
 import { IconRiMicLine } from './IconRiMicLine';
-import { IconRiMicOffLine } from './IconRiMicOffLine';
+import { IconRiMicOffLine } from './IconRiMicOffline';
 import { TextToSpeech } from 'elevenlabs-node';
+import { useNavigate } from 'react-router-dom';
+import logo from '/finalLogo.jpg'
 
 declare global {
   interface Window {
@@ -21,6 +23,7 @@ function TestRoom() {
   const [isGifVisible, setIsGifVisible] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const recogRef: any = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!('webkitSpeechRecognition' in window)) {
@@ -61,48 +64,79 @@ function TestRoom() {
     }
   };
 
-  const speakText = async () => {
-    if (response) {
-      console.log("great");
-      try {
-        console.log(response);
-        const apiKey = 'sk_c1568c9f363a3852b71a990ed9dca19af361ed6ff30ae446';
-        const url = 'https://api.elevenlabs.io/v1/text-to-speech/1qEiC6qsybMkmnNdVMbK';
-  
-        const options = {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'xi-api-key': apiKey,
-          },
-          body: JSON.stringify({
-            text: response,
-            voice_settings: {
-              stability: 0.5,
-              similarity_boost: 0.5,
-            },
-          }),
-        };
-  
-        const res = await fetch(url, options);
-  
-        if (!res.ok) {
-          throw new Error('Failed to fetch the audio');
-        }
-  
-        const audioUrl = URL.createObjectURL(await res.blob());
-  
-        const audio = new Audio(audioUrl);
-        audio.play();
-  
-        setIsGifVisible(true);
-        audio.onended = () => setIsGifVisible(false);
-  
-      } catch (error) {
-        console.error('Error speaking text:', error);
-      }
+  const handleEndInterview = async () => {
+    try {
+      // Send the `exit` query via a POST request
+      await axios.post('http://localhost:3000/api/v1/user/callModel', { query: 'exit' });
+      
+      // After the API call, navigate to the dashboard
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Error ending interview:', error);
+      // Handle error as needed (e.g., show an error message)
     }
   };
+
+  let currentAudio: HTMLAudioElement | null = null;
+
+const speakText = async (newResponse: string) => {
+  if (newResponse) {
+    console.log("great");
+    try {
+      console.log(newResponse);
+      const apiKey = 'sk_733ba366b5f566c3097fa2a4866d96fe0bb2952845fd4abb';
+      const url = 'https://api.elevenlabs.io/v1/text-to-speech/H6QPv2pQZDcGqLwDTIJQ';
+
+      const options = {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+          'xi-api-key': apiKey,
+        },
+        body: JSON.stringify({
+          text: newResponse,
+          voice_settings: {
+            stability: 0.5,
+            similarity_boost: 0.5,
+          },
+        }),
+      };
+
+      const res = await fetch(url, options);
+
+      if (!res.ok) {
+        throw new Error('Failed to fetch the audio');
+      }
+
+      // Stop the previous audio if it is still playing
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0; // Reset the audio
+      }
+
+      const audioUrl = URL.createObjectURL(await res.blob());
+
+      // Create new audio and assign it to currentAudio
+      currentAudio = new Audio(audioUrl);
+      currentAudio.play();
+
+      setIsGifVisible(true);
+      currentAudio.onended = () => {
+        setIsGifVisible(false);
+        currentAudio = null; // Clear the reference when done
+      };
+
+    } catch (error) {
+      console.error('Error speaking text:', error);
+    }
+  }
+};
+
+
+  useEffect(() => {
+    speakText(response);
+  }, [response]);
   
 
   const getResponse = async () => {
@@ -111,7 +145,8 @@ function TestRoom() {
       const newResponse = res.data.message;
       setResponse(newResponse);
       setConversationHistory([...conversationHistory, { user: transcript, ai: newResponse }]);
-      speakText();
+      
+      // speakText();
     } catch (error) {
       console.error('Error fetching response:', error);
     }
@@ -148,16 +183,14 @@ function TestRoom() {
       <div className="flex justify-between p-4 bg-zinc-800">
         <h2 className="text-2xl font-semibold">
           <img
-          src='inter-o-view.jpg'
+          src={logo}
           alt='logo'
-          height={'40px'}
-          width={'80px'}
-          className='rounded-lg'
+          className='h-12 rounded-lg aspect-auto'
           />
         </h2>
         <button
-          onClick={() => window.location.href = '/dashboard'}
-          className="px-4 py-2 text-black bg-white rounded-md"
+          onClick={handleEndInterview}
+          className="px-4 py-2 font-mono font-bold text-black bg-white rounded-md"
         >
           End Interview
         </button>
@@ -178,18 +211,18 @@ function TestRoom() {
             </div>
 
             {/* GIF Area */}
-            <div className="relative items-center justify-center w-1/2 max-w-sm overflow-hidden bg-zinc-800 h-72 rounded-3xl">
+            <div className="relative items-center justify-center w-1/2 max-w-sm overflow-hidden bg-black h-72 rounded-3xl">
               {(isGifVisible && !isListening) ? (
                 <img
-                  src="Designer.png"
+                  src="interview_room.gif"
                   alt="Interviewer"
                   className="object-cover h-full w-fit"
                 />
               ) : (
                 <img
-                  src="Designer.png"
+                  src="interview_room_1_crop.jpg"
                   alt="Interviewer"
-                  className="object-cover h-full w-fit "
+                  className="object-cover w-full h-full"
                 />
               )}
             </div>
@@ -232,7 +265,7 @@ function TestRoom() {
         </div>
 
         {/* Right Section with Conversation History */}
-        <div className="flex flex-col flex-1 p-4 bg-zinc-800 rounded-3xl max-w-[600px]">
+        <div className="flex flex-col flex-1 p-4 bg-zinc-800 rounded-3xl max-w-[500px]">
           <h3 className="text-2xl font-semibold">Past Conversations</h3>
           <div className="flex flex-col p-4 mt-2 space-y-4 overflow-y-auto min-h-[560px] max-h-[560px] rounded-2xl bg-zinc-00">
             {conversationHistory.map((conv, index) => (

@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import { callModel, createUser, sendOtp, uploadResume, verifyOtp } from '../controllers/user.controllers.js'
+import { callModel, createUser, sendOtp, uploadResume, verifyOtp, setUser } from '../controllers/user.controllers.js'
 import {isAuthenticated } from '../middlewares/auth.middleware.js'
 import { upload } from '../middlewares/multer.middleware.js'
 
@@ -23,6 +23,8 @@ router.route("/createUser").post(upload.fields([
 ]),createUser)
 
 router.route("/callModel").post(callModel)
+
+router.route("/setUser").post(setUser)
 
 export default router
 
