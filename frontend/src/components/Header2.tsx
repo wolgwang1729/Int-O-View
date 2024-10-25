@@ -3,7 +3,7 @@ import {  Link } from "react-router-dom"
 function Header() {
 
   return (
-    <div className="flex px-20 w-full shadow-md py-6" >
+    <div className="flex w-full px-20 py-6 shadow-md" >
         <div className=''>
             <Link to="/"><img className='ml-4 mt- cursor-pointer w-[400px] aspect-auto rounded-md' src='/logoNew.jpg'></img></Link>
         </div>

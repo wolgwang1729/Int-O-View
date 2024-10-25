@@ -57,8 +57,7 @@ prompt = """Please provide a summary of the interview using the following JSON f
     NegativePoints: Key weaknesses or areas of concern noted during the interview.Give 2-3 negative points in ordered format.
     Please ensure the output is strictly in the JSON format provided and reflects a professional evaluation of the interview. Avoid including any speculative or non-factual information.
     """
-
-
+    
 
 def upload_Resume(path):
 
@@ -143,26 +142,80 @@ def buildConversation():
 
     conversation_history.append(            
                 {"role": "system", "content": (
-                f"You are Rahul, a male officer from the Defence Research & Development Organisation (DRDO), responsible for "
+                f"You are Shreya, a female officer from the Defence Research & Development Organisation (DRDO), responsible for "
                 f"conducting a professional interview (High level Interview) for a job vacancy for {vacancy}. Your objective is to "
                 f"thoroughly assess the candidate's technical skills , problem-solving abilities, and cultural "
                 f"fit for DRDO. The interview should be structured to include a mix of technical, psychological questions, along with "
                 f"appropriate follow-up questions from the resume {resumeSummary}. Throughout the interview, maintain a formal and "
                 f"professional tone. If the candidate provides irrelevant responses, politely but firmly redirect them to focus on the "
-                f"interview questions. Note: Try to limit the length of questions to 30-50 words. If the candidate continues to provide "
+                f"interview questions. Note: Try to limit the length of questions to 20-25 words. If the candidate continues to provide "
                 f"irrelevant answers or engages in unproductive behaviour, calmly inform them that the interview cannot proceed without "
                 f"serious engagement, and if necessary, end the interview by stating that the session will be concluded due to a lack of "
                 f"relevant responses. Ensure that each question is asked clearly and concisely, and avoid overwhelming the candidate by "
                 f"limiting the number of questions asked at once. At the conclusion of the interview, you need to evaluate the candidate's "
-                f"overall performance."
+                f"overall performance.Please try to ask one question at a time and try to be easy in asking questions.  "
             )}
             )
+def final_dashboard_json():
+    prompt = """Please provide a summary of the interview using the following JSON format:
+
+    ```json
+    {
+    "BasicDetails": {
+        "Name": "",
+        "Vacancy": "",
+        "SkillsNeeded": []
+    },
+    "Scores": {
+        "EducationalBackgroundScore": 0,
+        "Experience": 0,
+        "InterpersonalCommunication": 0,
+        "TechnicalKnowledge": 0,
+        "OverallScore": 0
+    },
+    "InterviewSummary": {
+        "PositivePoints": "",
+        "NegativePoints": ""
+    }
+    }
+
+    Instructions:
+
+    BasicDetails:
+
+    Name: The name of the candidate.
+    Vacancy: The position or role for which the interview was conducted.
+    SkillsNeeded: List of skills required for the position.
+    Scores:
+
+    EducationalBackgroundScore: Score based on the candidate's educational qualifications.
+    Experience: Score based on the candidate's relevant work experience.
+    InterpersonalCommunication: Score based on the candidate's ability to communicate and interact effectively.
+    TechnicalKnowledge: Score based on the candidate's technical skills and knowledge.
+    OverallScore: Overall performance score of the candidate.
+    InterviewSummary:
+
+    PositivePoints: Key strengths or positive aspects observed during the interview.
+    NegativePoints: Key weaknesses or areas of concern noted during the interview.
+    Please ensure the output is strictly in the JSON format provided and reflects a professional evaluation of the interview. Avoid including any speculative or non-factual information.
+    """
+    # Use a valid role like "user" for the prompt
+    conversation_history.append({"role": "user", "content": prompt})
+    chat_completion = client.chat.completions.create(
+                messages=conversation_history,
+                model="llama3-8b-8192",
+            )
+    response_text = chat_completion.choices[0].message.content
+    return response_text
+
 
 
 def get_response(user_input):
 
     if (user_input.lower() == "exit" ):
-        conversation_history.append({"role": "user", "content": prompt})
+        prompt = final_dashboard_json()
+        return prompt
+        # print("conversation_history",'\n\n\n\n')
     else:
         conversation_history.append({"role": "user", "content": user_input})
 

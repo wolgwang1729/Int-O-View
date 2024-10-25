@@ -213,11 +213,25 @@ const callModel = asyncHandler(async (req, res)=>{
     const response = await axios.post(`${process.env.FLASK_URL}/predict`, { query },{
         withCredentials : true
     })
-
+    
 
     res.json({ 
         message : response.data.message
     })
+
+})
+
+const setUser = asyncHandler(async (req, res)=>{
+
+    const post = req.body.post
+
+    await axios.post("http://localhost:5000/setUser", { post }, {
+        withCredentials : true
+    })
+
+    res.json(
+        new ApiResponse(200, {}, "post set successfully")
+    )
 
 })
 
@@ -227,5 +241,6 @@ export {
     createUser,
     sendOtp,
     verifyOtp,
-    uploadResume
+    uploadResume,
+    setUser
 }

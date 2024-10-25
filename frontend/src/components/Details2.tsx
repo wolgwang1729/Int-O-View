@@ -3,6 +3,7 @@ import { services } from '../service/service'
 import { useDispatch, useSelector } from 'react-redux'
 import { setDetails } from '../features/userSlice'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 function Details2() {
   
@@ -58,6 +59,10 @@ function Details2() {
         if (data.resume instanceof File && data.photo instanceof File){
           setLoading(true)
 
+
+          await axios.post("http://localhost:3000/api/v1/user/setUser",{post:data.post},{
+            withCredentials : true
+          })
           await services.uploadResume(data.resume)
 
           const copiedUserData = {...reduxData}
@@ -93,6 +98,7 @@ function Details2() {
       setShowButton(true);
   }, [data]);
   return (
+<<<<<<< HEAD
     <div className='w-full h-screen relative'>
       <div className={`loader2 top-[50%] left-[50%] absolute  z-50 ${loading?'block':'hidden'}`}><svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
    
@@ -103,13 +109,20 @@ function Details2() {
           <a href='/'>
           <img src='logo2.jpg'/>
           </a>
+=======
+    <div className='relative w-full h-screen'>
+      <div className={`loader2 top-[50%] left-[50%] absolute  z-50 ${loading?'block':'hidden'}`}></div>
+      <div className={`w-full h-screen relative ${loading?'opacity-20':''}`}>
+        <div className='h-20 w-[20vw] ml-2 mt-2'>
+          <img src='logo2.jpg'/>
+>>>>>>> b0d65390ea8d47d0d22e357a3459786345d80c24
         </div>
-        <div className='mt-20 ml-96 font-bold text-2xl'>
+        <div className='mt-20 text-2xl font-bold ml-96'>
           Just One Step More
         </div>
-          <div className='h-screen w-full justify-center items-center flex font-mono font-extrabold text-xl -mt-32'>
+          <div className='flex items-center justify-center w-full h-screen -mt-32 font-mono text-xl font-extrabold'>
               <div className='w-96 h-[400px] flex justify-center items-center flex-col gap-2'>
-                  {/* <label htmlFor="post" className='w-full px-2 mb-2 text-2xl text-cyan-9  00'>Post</label> */}
+                  {/* <label htmlFor="post" className='w-full px-2 mb-2 text-2xl text-cyan-9 00'>Post</label> */}
                   <select name="" id="post" className='border-[2px] border-gray-600 h-16 rounded-lg px-2 outline-none cursor-pointer w-full mb-2'
                   onChange={(e)=>{setData(prev => ({...prev, post : e.target.value}))}}>
                       {
@@ -118,17 +131,17 @@ function Details2() {
                           ))
                       }
                   </select>
-                  <label htmlFor="photo" className='w-full cursor-pointer outline-none'>
+                  <label htmlFor="photo" className='w-full outline-none cursor-pointer'>
                       <input type="file" name="" id="photo" className='sr-only' onChange={handlePhoto} accept='.png, .jpg, .jpeg'/>
-                      <div className='w-full bg-red-500 text-white flex justify-center py-2 rounded-lg items-center'>
-                          <img src="https://t4.ftcdn.net/jpg/04/81/13/43/360_F_481134373_0W4kg2yKeBRHNEklk4F9UXtGHdub3tYk.jpg" alt="" className='h-12 aspect-auto rounded-lg'/>
+                      <div className='flex items-center justify-center w-full py-2 text-white bg-red-500 rounded-lg'>
+                          <img src="https://t4.ftcdn.net/jpg/04/81/13/43/360_F_481134373_0W4kg2yKeBRHNEklk4F9UXtGHdub3tYk.jpg" alt="" className='h-12 rounded-lg aspect-auto'/>
                           <h2 className='w-[300px] flex items-center justify-end px-2'>{photoName || "Upload Your Photo"}</h2>
                       </div>
                   </label>
-                  <label htmlFor="resume" className='w-full cursor-pointer outline-none'>
+                  <label htmlFor="resume" className='w-full outline-none cursor-pointer'>
                       <input type="file" name="" id="resume" className='sr-only' onChange={handleResume} accept='.pdf'/>
-                      <div className='w-full bg-cyan-500 text-white flex justify-center py-2 rounded-lg items-center'>
-                          <img src="https://www.shutterstock.com/shutterstock/photos/496830214/display_1500/stock-vector-upload-cv-file-icon-vector-illustration-isolated-on-white-background-496830214.jpg" alt="" className='h-12 aspect-auto rounded-lg'/>
+                      <div className='flex items-center justify-center w-full py-2 text-white rounded-lg bg-cyan-500'>
+                          <img src="https://www.shutterstock.com/shutterstock/photos/496830214/display_1500/stock-vector-upload-cv-file-icon-vector-illustration-isolated-on-white-background-496830214.jpg" alt="" className='h-12 rounded-lg aspect-auto'/>
                           <h2 className='w-[300px] flex items-center justify-end px-2'>{resumeName || "Upload Your Resume"}</h2>
                       </div>
                   </label>
