@@ -180,17 +180,17 @@ export default function Details1() {
  
 
   return (
-    <section className="relative">
+    <section className="relative bg-slate-100">
       {/* <div id="back" className=" w-7 h-7 mt-2 ml-2 cursor-pointer">
         <Link to="/">
         <img src="https://cdn-icons-png.flaticon.com/128/93/93634.png"/>
         </Link>
       </div> */}
       <div className={`loader2 absolute top-[50%] left-[25%] ${sendingOtp?'':'hidden'}`}></div>
-      <div id="rest-div" className="grid grid-cols-1 lg:grid-cols-2">
+      <div id="rest-div" className=" grid grid-cols-1 lg:grid-cols-2">
         <div className={`items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24 ${sendingOtp?'opacity-50':''}`}>
           <Link to='/'>
-          <img className='h-[11vw] w-[22vw] -mt-16 ml-16' src='logo2.jpg'/>
+          <img className='h-20 w-64 -mt-16 ml-16' src='../../logoNew-removebg-preview.jpg'/>
           </Link>
           <div id="otp-div" className='w-96 h-48 flex-col justify-center items-center gap-8 hidden'>
             <div className="mt-[8vw] xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
@@ -213,7 +213,7 @@ export default function Details1() {
                               onKeyDown={(e)=>{moveToAnotherBox(e,index)}}
                               onClick={()=>putCursorAtBack(index)}
                               ref={(input)=>inputRefs.current[index] = input}
-                              className='h-16 -mt-3 aspect-square border-[2px] rounded-md outline-none px-[1.35rem] text-3xl'
+                              className='h-16 w-16 -mt-3 aspect-square border-[2px] rounded-md outline-none px-[1.35rem] text-3xl'
                               />
                           ))
                       }
@@ -305,10 +305,10 @@ export default function Details1() {
            
           </div>  
         </div>
-        <div className="h-screen w-full border-2 -mt-8">
+        <div className="h-screen  w-full border-2 ">
           <img
             className="mx-auto h-full w-full rounded-md object-cover"
-            src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80"
+            src="../../login.png"
             alt=""
           />
           </div>

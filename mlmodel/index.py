@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from groq import Groq
-from model import chatbot
+# from model import chatbot
 from werkzeug.utils import secure_filename
 import os
 from finalModel import get_response,upload_Resume,intitializeInterviewee
@@ -9,7 +9,9 @@ from finalModel import get_response,upload_Resume,intitializeInterviewee
 
 app = Flask(__name__)
 
-# CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+# app.use(cors())
+
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 UPLOAD_FOLDER = 'public'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -81,4 +83,3 @@ def setUser():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-

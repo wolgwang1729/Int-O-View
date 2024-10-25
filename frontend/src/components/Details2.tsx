@@ -94,10 +94,15 @@ function Details2() {
   }, [data]);
   return (
     <div className='w-full h-screen relative'>
-      <div className={`loader2 top-[50%] left-[50%] absolute  z-50 ${loading?'block':'hidden'}`}></div>
+      <div className={`loader2 top-[50%] left-[50%] absolute  z-50 ${loading?'block':'hidden'}`}><svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
+   
+  </svg>
+  </div>
       <div className={`w-full h-screen relative ${loading?'opacity-20':''}`}>
         <div className='h-20 w-[20vw] ml-2 mt-2'>
-          <img src='logo1.jpg'/>
+          <a href='/'>
+          <img src='logo2.jpg'/>
+          </a>
         </div>
         <div className='mt-20 ml-96 font-bold text-2xl'>
           Just One Step More
