@@ -49,13 +49,13 @@ Here are some images related to the project:
 [2]: https://i.sstatic.net/MBS1ViFp.png
 [3]: https://i.sstatic.net/BH8O4TCz.png
 [4]: https://i.sstatic.net/82tl81uT.png
-[5]: https://i.sstatic.net/3fXp4ZlD.png
+[5]: https://i.sstatic.net/TMLw00YJ.png
 
 ## Video Demonstration
 
 Watch the video demonstration of the project on YouTube:
 
-[![Watch the video](https://img.youtube.com/vi/DihqVOpJFls/maxresdefault.jpg)](https://youtu.be/DihqVOpJFls)
+[![Watch the video](https://img.youtube.com/vi/DihqVOpJFls/maxresdefault.jpg)](https://youtu.be/DPsmpPJPh4w)
 
 ## Recruiter Tools
 
