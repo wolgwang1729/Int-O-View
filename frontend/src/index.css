@@ -1,3 +1,125 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#loader {
+    --d:11px;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    color: white;
+    box-shadow: 
+      calc(1*var(--d))      calc(0*var(--d))     0 0,
+      calc(0.707*var(--d))  calc(0.707*var(--d)) 0 0.5px,
+      calc(0*var(--d))      calc(1*var(--d))     0 1px,
+      calc(-0.707*var(--d)) calc(0.707*var(--d)) 0 1.5px,
+      calc(-1*var(--d))     calc(0*var(--d))     0 2px,
+      calc(-0.707*var(--d)) calc(-0.707*var(--d))0 2.5px,
+      calc(0*var(--d))      calc(-1*var(--d))    0 3px;
+    animation: l27 1s infinite steps(8);
+  }
+  @keyframes l27 {
+    100% {transform: rotate(1turn)}
+}
+
+/* HTML: <div class="loader"></div> */
+/* HTML: <div class="loader"></div> */
+.loader2 {
+  --d:22px;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  color: #349dda;
+  box-shadow: 
+    calc(1*var(--d))      calc(0*var(--d))     0 0,
+    calc(0.707*var(--d))  calc(0.707*var(--d)) 0 0.5px,
+    calc(0*var(--d))      calc(1*var(--d))     0 1px,
+    calc(-0.707*var(--d)) calc(0.707*var(--d)) 0 1.5px,
+    calc(-1*var(--d))     calc(0*var(--d))     0 2px,
+    calc(-0.707*var(--d)) calc(-0.707*var(--d))0 2.5px,
+    calc(0*var(--d))      calc(-1*var(--d))    0 3px;
+  animation: l27 1s infinite steps(8);
+}
+@keyframes l27 {
+  100% {transform: rotate(1turn)}
+}
+
+/* From Uiverse.io by SchawnnahJ */ 
+/* From Uiverse.io by mobinkakei */ 
+/* From Uiverse.io by mrhyddenn */ 
+.loader {
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  border: 5px solid rgb(33, 215, 243);
+  border-radius: 50%;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  animation: rot5 1s infinite;
+}
+
+@keyframes rot5 {
+  0% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(180deg);
+    border-top-color: rgb(55, 165, 239);
+    border-bottom-color: rgb(33, 215, 243);
+    border-right-color: transparent;
+    border-left-color: transparent;
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Custom scrollbar styles */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #00bcd4 #f0f0f0;
+}
+
+/* For WebKit browsers */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #00bcd4;
+  border-radius: 10px;
+  border: 3px solid #f0f0f0;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #43d8eb, #1de9b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dabba{
+  position: relative;
+  width: 90%;
+  height: 240px;
+  margin-top: 20px;
+  overflow: hidden;
+}
+
+#images{
+  position: absolute;
+  width: 288px;
+  top : 10%;
+  left: 100%;
+}
+
+.typed-cursor {
+  font-size: 1em; /* Adjust the size as needed */
+  line-height: 1; /* Adjust the line height as needed */
+  width: 1px; /* Adjust the width to make the cursor thinner */
+}
