@@ -135,6 +135,6 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
 
 ## Acknowledgements
-
+- This was a team project for SIH.
 - [Groq](https://groq.com) for providing the LLM API.
 - [OpenAI](https://openai.com) for ChatGPT-4 via [OnDemand](https://app.on-demand.io/).
