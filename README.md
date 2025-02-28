@@ -45,6 +45,8 @@ Here are some images related to the project:
 
 ![Image 5][5]
 
+![Model Workflow](https://i.sstatic.net/WWJt9AwX.png)
+
 [1]: https://i.sstatic.net/mdahM6Ds.png
 [2]: https://i.sstatic.net/MBS1ViFp.png
 [3]: https://i.sstatic.net/BH8O4TCz.png
