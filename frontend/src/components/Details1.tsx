@@ -180,13 +180,8 @@ export default function Details1() {
  
 
   return (
-<<<<<<< HEAD
-    <section className="relative bg-slate-100">
-      {/* <div id="back" className=" w-7 h-7 mt-2 ml-2 cursor-pointer">
-=======
     <section className="relative">
       {/* <div id="back" className="mt-2 ml-2 cursor-pointer w-7 h-7">
->>>>>>> b0d65390ea8d47d0d22e357a3459786345d80c24
         <Link to="/">
         <img src="https://cdn-icons-png.flaticon.com/128/93/93634.png"/>
         </Link>
@@ -194,13 +189,8 @@ export default function Details1() {
       <div className={`loader2 absolute top-[50%] left-[25%] ${sendingOtp?'':'hidden'}`}></div>
       <div id="rest-div" className=" grid grid-cols-1 lg:grid-cols-2">
         <div className={`items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-24 ${sendingOtp?'opacity-50':''}`}>
-<<<<<<< HEAD
-          <Link to='/'>
-          <img className='h-20 w-64 -mt-16 ml-16' src='../../logoNew-removebg-preview.jpg'/>
-=======
           <Link to="/">
           <img className='h-24 mb-12 ml-32 -mt-8 w-60' src='finalLogo.jpg'/>
->>>>>>> b0d65390ea8d47d0d22e357a3459786345d80c24
           </Link>
           <div id="otp-div" className='flex-col items-center justify-center hidden h-48 gap-8 w-96'>
             <div className="mt-[8vw] xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
@@ -315,17 +305,10 @@ export default function Details1() {
            
           </div>  
         </div>
-<<<<<<< HEAD
-        <div className="h-screen  w-full border-2 ">
-          <img
-            className="mx-auto h-full w-full rounded-md object-cover"
-            src="../../login.png"
-=======
         <div className="w-full h-screen -mt-8 border-2">
           <img
             className="object-cover w-full h-full mx-auto rounded-md"
             src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80"
->>>>>>> b0d65390ea8d47d0d22e357a3459786345d80c24
             alt=""
           />
           </div>

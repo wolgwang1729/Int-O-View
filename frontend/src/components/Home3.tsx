@@ -150,7 +150,7 @@ function Home3() {
 
     useEffect(() => {
         const typed = new Typed(textref.current, {
-          strings: ['faster . ', 'brisker . '],
+          strings: ['faster. ', 'brisker. '],
           typeSpeed: 50,
           backSpeed: 50,
           loop: true, // Enable infinite looping

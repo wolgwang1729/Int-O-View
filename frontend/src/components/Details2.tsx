@@ -98,24 +98,11 @@ function Details2() {
       setShowButton(true);
   }, [data]);
   return (
-<<<<<<< HEAD
-    <div className='w-full h-screen relative'>
-      <div className={`loader2 top-[50%] left-[50%] absolute  z-50 ${loading?'block':'hidden'}`}><svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
-   
-  </svg>
-  </div>
-      <div className={`w-full h-screen relative ${loading?'opacity-20':''}`}>
-        <div className='h-20 w-[20vw] ml-2 mt-2'>
-          <a href='/'>
-          <img src='logo2.jpg'/>
-          </a>
-=======
     <div className='relative w-full h-screen'>
       <div className={`loader2 top-[50%] left-[50%] absolute  z-50 ${loading?'block':'hidden'}`}></div>
       <div className={`w-full h-screen relative ${loading?'opacity-20':''}`}>
         <div className='h-20 w-[20vw] ml-2 mt-2'>
           <img src='logo2.jpg'/>
->>>>>>> b0d65390ea8d47d0d22e357a3459786345d80c24
         </div>
         <div className='mt-20 text-2xl font-bold ml-96'>
           Just One Step More
