@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function Header() {
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between sm:px-5 md:px-14 lg:px-20 py-6 shadow-md">
+    <div className="flex flex-col sm:flex-row items-center justify-between sm:px-5 md:px-14 lg:px-20 py-6 shadow-md">
       <div className="mb-4 md:mb-0">
         <Link to="/">
           <img className="h-14" src="/logoNew.jpg" alt="Logo" />
