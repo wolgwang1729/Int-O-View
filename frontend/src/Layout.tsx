@@ -1,4 +1,4 @@
-import Header2 from './components/Header2'
+import Header2 from './components/Header'
 import Footer from './components/Footer'
 import { Outlet } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
