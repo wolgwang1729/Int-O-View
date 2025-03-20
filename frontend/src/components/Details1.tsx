@@ -198,7 +198,7 @@ export default function Details1() {
                 OTP Verification
               </div>
               <p
-                className={`ml-20 mt-5 font-bold font-mono text-red-600 ${
+                className={`ml-20 mt-5 font-bold font-mono text-center text-red-600 ${
                   errors ? "block" : "hidden"
                 }`}
               >
@@ -250,7 +250,7 @@ export default function Details1() {
           >
             {/* <h2 className="text-xl font-bold leading-tight text-black sm:text-3xl">Get Started!</h2> */}
             <p
-              className={`font-bold font-mono text-red-600 ${
+              className={`font-bold font-mono text-center text-red-600 ${
                 errors ? "block" : "hidden"
               }`}
             >
