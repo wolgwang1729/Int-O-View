@@ -12,7 +12,6 @@ export default function Footer() {
               <img src="finalLogo.jpg" alt="hrll" className='w-52 aspect-auto'/>
             </div>
             <div>
-              <p className="mb-4 text-base font-medium">DRDO's Interview Platform</p>
               <p className="text-sm text-gray-600">
                 &copy; Copyright 2024. All Rights Reserved by Int-O-View.
               </p>
