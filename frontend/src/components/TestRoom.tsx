@@ -221,7 +221,6 @@ function TestRoom() {
     speakText(response);
   }, [response]);
 
-
   const getResponse = async () => {
     try {
       const res = await axios.post(
@@ -229,10 +228,9 @@ function TestRoom() {
         { query: transcript }
       );
 
-      if(transcript === "exit") {
+      if (transcript === "exit") {
         handleEndInterview();
       }
-
 
       const newResponse = res.data.message;
       setResponse(newResponse);
