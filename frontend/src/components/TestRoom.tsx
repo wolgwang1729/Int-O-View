@@ -25,10 +25,6 @@ function TestRoom() {
   const recogRef: any = useRef(null);
   const navigate = useNavigate();
 
-  const client = new ElevenLabsClient({
-    apiKey: `${import.meta.env.VITE_ELEVEN_LAB_KEY}`,
-  });
-
   // useEffect(() => {
   //   if (!('webkitSpeechRecognition' in window)) {
   //     alert("Speech recognition not supported.");
@@ -172,16 +168,15 @@ function TestRoom() {
       console.log("great");
       try {
         console.log(newResponse);
-        const apiKey = `${import.meta.env.VITE_ELEVEN_LAB_KEY}`;
-        const url =
-          `${import.meta.env.VITE_ELEVEN_LAB_URL}`;
-
+        const apiKey = 'sk_733ba366b5f566c3097fa2a4866d96fe0bb2952845fd4abb';
+        const url = 'https://api.elevenlabs.io/v1/text-to-speech/H6QPv2pQZDcGqLwDTIJQ';
+  
         const options = {
-          method: "POST",
-          mode: "cors",
+          method: 'POST',
+          mode: 'cors',
           headers: {
-            "Content-Type": "application/json",
-            "xi-api-key": apiKey,
+            'Content-Type': 'application/json',
+            'xi-api-key': apiKey,
           },
           body: JSON.stringify({
             text: newResponse,
@@ -191,35 +186,37 @@ function TestRoom() {
             },
           }),
         };
-
+  
         const res = await fetch(url, options);
-
+  
         if (!res.ok) {
-          throw new Error("Failed to fetch the audio");
+          throw new Error('Failed to fetch the audio');
         }
-
+  
         // Stop the previous audio if it is still playing
         if (currentAudio) {
           currentAudio.pause();
           currentAudio.currentTime = 0; // Reset the audio
         }
-
+  
         const audioUrl = URL.createObjectURL(await res.blob());
-
+  
         // Create new audio and assign it to currentAudio
         currentAudio = new Audio(audioUrl);
         currentAudio.play();
-
+  
         setIsGifVisible(true);
         currentAudio.onended = () => {
           setIsGifVisible(false);
           currentAudio = null; // Clear the reference when done
         };
+  
       } catch (error) {
-        console.error("Error speaking text:", error);
+        console.error('Error speaking text:', error);
       }
     }
   };
+  
 
   useEffect(() => {
     speakText(response);
