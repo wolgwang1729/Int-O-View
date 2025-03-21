@@ -54,7 +54,7 @@ function Details2() {
         setLoading(true);
 
         await axios.post(
-          "http://localhost:3000/api/v1/user/setUser",
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/user/setUser`,
           { post: data.post },
           {
             withCredentials: true,
