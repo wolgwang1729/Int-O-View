@@ -4,9 +4,8 @@ import { IconRiCameraLine } from "./IconRiCameraLine";
 import { IconRiCameraOffLine } from "./IconRiCameraOffline.tsx";
 import { IconRiMicLine } from "./IconRiMicLine";
 import { IconRiMicOffLine } from "./IconRiMicOffline.tsx";
-import { TextToSpeech } from "elevenlabs-node";
+// import { TextToSpeech } from "elevenlabs-node";
 import { useNavigate } from "react-router-dom";
-import logo from "/finalLogo.jpg";
 
 declare global {
   interface Window {
@@ -222,9 +221,6 @@ function TestRoom() {
     speakText(response);
   }, [response]);
 
-  useEffect(() => {
-    speakText();
-  }, [response]);
 
   const getResponse = async () => {
     try {
@@ -232,6 +228,8 @@ function TestRoom() {
         "http://localhost:3000/api/v1/user/callModel",
         { query: transcript }
       );
+
+
       const newResponse = res.data.message;
       setResponse(newResponse);
       setConversationHistory([
