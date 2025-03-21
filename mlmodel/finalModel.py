@@ -2,7 +2,7 @@ import requests
 from PyPDF2 import PdfReader
 
 # API on demand credentials
-api_key = '6gyVcaRy6r2AsTaq1lLFVQTZj4i7pNIM'
+api_key = 'kWTsLOvNQ2dwhx8tlsqTX5YyHcoh9rEC'
 external_user_id = '123'
 
 # Variables for PDF resume and vacancy details
@@ -18,6 +18,7 @@ def create_chat_session():
     headers = {'apikey': api_key}
     body = {"pluginIds": [], "externalUserId": external_user_id}
     response = requests.post(url, headers=headers, json=body)
+    print(response.json())
     return response.json()['data']['id']
 
 # Function to submit a query with the full conversation history
@@ -51,7 +52,6 @@ def upload_Resume(path):
                 page = pdf_reader.pages[page_num]
                 text += page.extract_text()
 
-        print(text)
 
         # Prepare prompt message for resume summary
         prompt_message_summary = (
@@ -133,7 +133,6 @@ def get_response(user_input):
         session_id = create_chat_session()
         response_text = submit_query(session_id, user_input)
         conversation_history.append({"role": "assistant", "content": response_text})
-        print(conversation_history)
         return response_text
     except Exception as e:
         return "oops error"
