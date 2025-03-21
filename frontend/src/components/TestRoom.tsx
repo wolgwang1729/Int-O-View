@@ -4,7 +4,7 @@ import { IconRiCameraLine } from "./IconRiCameraLine";
 import { IconRiCameraOffLine } from "./IconRiCameraOffline.tsx";
 import { IconRiMicLine } from "./IconRiMicLine";
 import { IconRiMicOffLine } from "./IconRiMicOffline.tsx";
-// import { TextToSpeech } from "elevenlabs-node";
+import { ElevenLabsClient } from "elevenlabs";
 import { useNavigate } from "react-router-dom";
 
 declare global {
@@ -24,6 +24,10 @@ function TestRoom() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const recogRef: any = useRef(null);
   const navigate = useNavigate();
+
+  const client = new ElevenLabsClient({
+    apiKey: `${import.meta.env.VITE_ELEVEN_LAB_KEY}`,
+  });
 
   // useEffect(() => {
   //   if (!('webkitSpeechRecognition' in window)) {
@@ -168,7 +172,7 @@ function TestRoom() {
       console.log("great");
       try {
         console.log(newResponse);
-        const apiKey = `${import.meta.env.VITE_ELEVENLABS_API_KEY}`;
+        const apiKey = `${import.meta.env.VITE_ELEVEN_LAB_KEY}`;
         const url =
           `${import.meta.env.VITE_ELEVEN_LAB_URL}`;
 
