@@ -48,7 +48,7 @@ const Dashboard: React.FC = () => {
   const [data, setData] = useState<DashboardData | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/v1/user/dashboardData")
+    fetch("${import.meta.env.VITE_BACKEND_URL}/dashboardData")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");

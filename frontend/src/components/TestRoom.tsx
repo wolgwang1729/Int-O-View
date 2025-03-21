@@ -149,7 +149,7 @@ function TestRoom() {
   const handleEndInterview = async () => {
     try {
       // Send the `exit` query via a POST request
-      await axios.post("http://localhost:3000/api/v1/user/callModel", {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/callModel`, {
         query: "exit",
       });
 
@@ -224,7 +224,7 @@ function TestRoom() {
   const getResponse = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/v1/user/callModel",
+        `${import.meta.env.VITE_BACKEND_URL}/callModel`,
         { query: transcript }
       );
 
