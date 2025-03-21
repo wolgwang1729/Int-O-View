@@ -4,7 +4,6 @@ import { IconRiCameraLine } from "./IconRiCameraLine";
 import { IconRiCameraOffLine } from "./IconRiCameraOffline.tsx";
 import { IconRiMicLine } from "./IconRiMicLine";
 import { IconRiMicOffLine } from "./IconRiMicOffline.tsx";
-import { ElevenLabsClient } from "elevenlabs";
 import { useNavigate } from "react-router-dom";
 
 declare global {
