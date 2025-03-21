@@ -229,6 +229,10 @@ function TestRoom() {
         { query: transcript }
       );
 
+      if(transcript === "exit") {
+        handleEndInterview();
+      }
+
 
       const newResponse = res.data.message;
       setResponse(newResponse);

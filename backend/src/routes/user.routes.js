@@ -1,7 +1,8 @@
 import {Router} from 'express'
-import { callModel, createUser, sendOtp, uploadResume, verifyOtp, setUser } from '../controllers/user.controllers.js'
+import { callModel, createUser, sendOtp, uploadResume, verifyOtp, setUser, getDashboardData } from '../controllers/user.controllers.js'
 import {isAuthenticated } from '../middlewares/auth.middleware.js'
 import { upload } from '../middlewares/multer.middleware.js'
+import { get } from 'http'
 
 const router = Router()
 
@@ -25,6 +26,9 @@ router.route("/createUser").post(upload.fields([
 router.route("/callModel").post(callModel)
 
 router.route("/setUser").post(setUser)
+
+router.route("/dashboardData").get(getDashboardData)
+
 
 export default router
 

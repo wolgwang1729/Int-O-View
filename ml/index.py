@@ -1,27 +1,24 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from groq import Groq
-# from model import chatbot
 from werkzeug.utils import secure_filename
 import os
-from finalModel import get_response,upload_Resume,intitializeInterviewee
+from groqModel import get_response,upload_Resume,intitializeInterviewee,final_dashboard_json
+import json
+import re
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 app = Flask(__name__)
 
-# app.use(cors())
+CORS(app, resources={r"/*": {"origins": os.getenv('CLIENT_ORIGIN')}})
 
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
-
-UPLOAD_FOLDER = 'public'
+UPLOAD_FOLDER = 'ml/public'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
-
-# client = Groq(api_key='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')
-
-
 
 @app.route("/predict",methods = ['POST'])
 def predict():
@@ -39,7 +36,6 @@ def predict():
 
 @app.route("/upload",methods = ['POST'])
 def upload():
-
     if 'resume' not in request.files:
         return jsonify({
             'message' : "resume not sent",
@@ -57,14 +53,16 @@ def upload():
     filename = secure_filename(file.filename)
     file_path = os.path.join(app.config['UPLOAD_FOLDER'],filename)
     file.save(file_path)
-    
+
     print(file_path)
+    
     upload_Resume(file_path)
 
     return jsonify({
-        'message' : 'file uploaded successfully',
+        'message' : 'file uploaded successfully !',
         'success' : True
     })
+
 
 
 @app.route("/setUser",methods = ['POST'])
@@ -81,5 +79,24 @@ def setUser():
         'success' : True
     })
 
+@app.route('/dashboardData', methods=['GET'])
+def end_interview():
+    summary = final_dashboard_json()
+    clean_text = summary.replace('\\n', '').replace('\\', '')
+
+    # Extract the JSON part from the cleaned text
+    start_index = clean_text.find('{')
+    end_index = clean_text.rfind('}') + 1
+    json_str = clean_text[start_index:end_index]
+    json_str = re.sub(r'//.*', '', json_str)
+
+    # Load the JSON data
+    try:
+        data = json.loads(json_str)
+        print(jsonify({"summary": data}))
+        return jsonify({"summary": data})
+    except json.JSONDecodeError as e:
+        print("Error decoding JSON:", e)
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=os.getenv('FLASK_PORT'))

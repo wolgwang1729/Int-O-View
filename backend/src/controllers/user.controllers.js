@@ -216,4 +216,17 @@ const setUser = asyncHandler(async (req, res) => {
   res.json(new ApiResponse(200, {}, 'post set successfully'));
 });
 
-export { callModel, createUser, sendOtp, verifyOtp, uploadResume, setUser };
+const getDashboardData = asyncHandler(async (req, res) => {
+
+  const response = await axios.get(
+    `${process.env.FLASK_URL}/dashboardData`,
+  );
+
+  console.log(response.data);
+
+  res.json({
+    message: response.data
+  });
+});
+
+export { callModel, createUser, sendOtp, verifyOtp, uploadResume, setUser, getDashboardData };
