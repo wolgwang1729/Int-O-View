@@ -168,9 +168,9 @@ function TestRoom() {
       console.log("great");
       try {
         console.log(newResponse);
-        const apiKey = "sk_733ba366b5f566c3097fa2a4866d96fe0bb2952845fd4abb";
+        const apiKey = `${import.meta.env.VITE_ELEVENLABS_API_KEY}`;
         const url =
-          "https://api.elevenlabs.io/v1/text-to-speech/H6QPv2pQZDcGqLwDTIJQ";
+          `${import.meta.env.VITE_ELEVEN_LAB_URL}`;
 
         const options = {
           method: "POST",
