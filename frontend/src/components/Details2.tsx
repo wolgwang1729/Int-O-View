@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Details2() {
-  const vacancy = ["Post", "SDE", "Ml-Engineer", "Junior Research Fellow"];
+  const vacancy = ["Select a Post", "SDE", "Ml-Engineer", "Junior Research Fellow"];
 
   const [photoName, setPhotoName] = useState<String>("");
   const [resumeName, setResumeName] = useState<String>("");
@@ -116,6 +116,7 @@ function Details2() {
             <select
               name=""
               id="post"
+              defaultValue="Select a Post"
               className="border-[2px] border-gray-600 h-16 rounded-lg px-2 outline-none cursor-pointer w-full mb-2"
               onChange={(e) => {
                 setData((prev) => ({ ...prev, post: e.target.value }));
@@ -125,8 +126,7 @@ function Details2() {
                 <option
                   key={index}
                   value={val}
-                  hidden={val === "Post"}
-                  selected={val === "Post"}
+                  hidden={val === "Select a Post"}
                   className=""
                 >
                   {val}

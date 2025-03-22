@@ -38,9 +38,9 @@ const sendOtp = asyncHandler(async (req, res) => {
             <html>
                 <body>
                     <h1>Email Verification</h1>
-                    <p>Thank you for using our service. Here is your otp.Please do not share it with anyone.</p>
+                    <p>Thank you for using our Int-O-View. Here is your OTP .Please do not share it with anyone.</p>
                     <h3><b>${otp}</b></h3>
-                    <p>If you did not requested for this, please ignore this message</p>
+                    <p>If you did not request this, please disregard this email.</p>
                 </body>
             </html>
 

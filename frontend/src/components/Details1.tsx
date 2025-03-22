@@ -155,7 +155,6 @@ export default function Details1() {
       let otp_div = document.getElementById("otp-div");
       otp_div?.classList.remove("hidden");
       otp_div?.classList.add("flex");
-      console.log("Form submitted:");
       const firstInput = inputRefs.current[0];
       if (firstInput) {
         firstInput.focus();
@@ -210,7 +209,7 @@ export default function Details1() {
                   errors ? "mt-5" : "mt-10"
                 }`}
               >
-                Enter Otp received on email
+                Enter OTP received on email
               </div>
             </div>
             <div className="flex gap-1 ml-12">
