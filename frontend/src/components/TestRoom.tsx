@@ -314,7 +314,7 @@ function TestRoom() {
                 />
               ) : (
                 <img
-                  src="interview_room_1_crop.jpg"
+                  src="staticgif.jpg"
                   alt="Interviewer"
                   className="object-cover w-full h-full"
                 />
