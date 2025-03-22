@@ -1,6 +1,6 @@
 import { asyncHandler } from '../utils/asynchandler.js';
 import { ApiError } from '../utils/ApiError.js';
-import { ApiResponse } from '../utils/apiresponse.js';
+import { ApiResponse } from '../utils/Apiresponse.js';
 import { User } from '../models/user.model.js';
 import { uploadOnCloudinary } from '../utils/cloudinary.js';
 import axios from 'axios';
