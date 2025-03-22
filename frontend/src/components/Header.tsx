@@ -9,11 +9,11 @@ function Header() {
         </Link>
       </div>
       <div className="flex justify-center items-center">
-        <div className="flex h-14 justify-center items-center px-4 border-2 font-mono rounded-2xl border-slate-200 text-blue-800 text-center text-base md:text-xl font-bold cursor-pointer transition-all ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-100">
-          <Link to="/details_1">
+        <Link to="/details_1">
+          <div className="flex h-14 justify-center items-center px-4 border-2 font-mono rounded-2xl border-slate-200 text-blue-800 text-center text-base md:text-xl font-bold cursor-pointer transition-all ease-in-out hover:-translate-y-1 hover:scale-105 hover:bg-blue-100">
             <div>Login</div>
-          </Link>
-        </div>
+          </div>
+        </Link>
       </div>
     </div>
   );
