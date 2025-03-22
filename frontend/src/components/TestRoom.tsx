@@ -167,8 +167,8 @@ function TestRoom() {
       console.log("great");
       try {
         console.log(newResponse);
-        const apiKey = import.meta.env.VITE_ELEVENLABS_API_KEY;
-        const url = 'https://api.elevenlabs.io/v1/text-to-speech/H6QPv2pQZDcGqLwDTIJQ';
+        const apiKey = `${import.meta.env.VITE_ELEVEN_LAB_KEY}`;
+        const url = 'https://api.elevenlabs.io/v1/text-to-speech/pFZP5JQG7iQjIQuC4Bku';
   
         const options = {
           method: 'POST',
@@ -179,6 +179,7 @@ function TestRoom() {
           },
           body: JSON.stringify({
             text: newResponse,
+            model_id :"eleven_flash_v2_5",
             voice_settings: {
               stability: 0.5,
               similarity_boost: 0.5,
