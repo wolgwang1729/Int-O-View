@@ -53,8 +53,6 @@ def upload():
     filename = secure_filename(file.filename)
     file_path = os.path.join(app.config['UPLOAD_FOLDER'],filename)
     file.save(file_path)
-
-    print(file_path)
     
     upload_Resume(file_path)
 
@@ -89,6 +87,7 @@ def end_interview():
     end_index = clean_text.rfind('}') + 1
     json_str = clean_text[start_index:end_index]
     json_str = re.sub(r'//.*', '', json_str)
+    print(json_str)
 
     # Load the JSON data
     try:
