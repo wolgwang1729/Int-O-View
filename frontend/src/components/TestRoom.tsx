@@ -103,7 +103,7 @@ function TestRoom() {
   
         const options = {
           method: 'POST',
-          mode: 'cors',
+          mode: "cors" as RequestMode,
           headers: {
             'Content-Type': 'application/json',
             'xi-api-key': apiKey,
