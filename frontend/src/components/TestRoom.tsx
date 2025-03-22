@@ -164,7 +164,6 @@ function TestRoom() {
 
   const speakText = async (newResponse: string) => {
     if (newResponse) {
-      console.log("great");
       try {
         console.log(newResponse);
         const apiKey = `${import.meta.env.VITE_ELEVEN_LAB_KEY}`;

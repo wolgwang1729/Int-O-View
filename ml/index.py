@@ -34,31 +34,33 @@ def predict():
     })
 
 
-@app.route("/upload",methods = ['POST'])
+@app.route("/upload", methods=['POST'])
 def upload():
     if 'resume' not in request.files:
         return jsonify({
-            'message' : "resume not sent",
-            'success' : False 
-        }),400
+            'message': "resume not sent",
+            'success': False
+        }), 400
 
     file = request.files['resume']
 
     if file.filename == '':
         return jsonify({
-            'message' : 'no selected file',
-            'success' : False
+            'message': 'no selected file',
+            'success': False
         })
     
     filename = secure_filename(file.filename)
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'],filename)
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     file.save(file_path)
     
     upload_Resume(file_path)
+    
+    os.remove(file_path)
 
     return jsonify({
-        'message' : 'file uploaded successfully !',
-        'success' : True
+        'message': 'file uploaded successfully !',
+        'success': True
     })
 
 

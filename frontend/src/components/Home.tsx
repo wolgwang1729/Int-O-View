@@ -126,7 +126,6 @@ function Home() {
 
   if (width) {
     document.querySelectorAll("#images").forEach((box, index) => {
-      console.log(box);
       gsap.to(box, {
         x: -width - 288,
         duration: duration,
