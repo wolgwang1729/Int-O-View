@@ -51,7 +51,6 @@ def upload_Resume(path):
         completion = client.chat.completions.create(model="deepseek-r1-distill-llama-70b",messages=promptMessages)
         response=thinkRemover(completion.choices[0].message.content)
         resumeSummary = response
-        print(resumeSummary)
         build_conversation()
 
 # Set up interview context
@@ -114,7 +113,6 @@ def final_dashboard_json():
     response_text=thinkRemover(completion.choices[0].message.content)
     dashboardData=response_text
     conversation_history.append({"role": "assistant", "content": response_text})
-    print(dashboardData)
     return dashboardData
 
 # Function to get interview responses
@@ -128,7 +126,6 @@ def get_response(user_input):
         completion = client.chat.completions.create(model="gemma2-9b-it",messages=conversation_history)
         response_text=thinkRemover(completion.choices[0].message.content)
         conversation_history.append({"role": "assistant", "content": response_text})
-        print(conversation_history)
         return response_text
     except Exception as e:
         return "oops error"
