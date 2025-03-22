@@ -206,7 +206,7 @@ const setUser = asyncHandler(async (req, res) => {
   const post = req.body.post;
 
   await axios.post(
-    'http://localhost:5000/setUser',
+    `${process.env.FLASK_URL}/setUser`,
     { post },
     {
       withCredentials: true,
