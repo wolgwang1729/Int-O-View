@@ -48,7 +48,7 @@ const Dashboard: React.FC = () => {
   const [data, setData] = useState<DashboardData | null>(null);
 
   useEffect(() => {
-    fetch("${import.meta.env.VITE_BACKEND_URL}/dashboardData")
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/dashboardData`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -57,7 +57,6 @@ const Dashboard: React.FC = () => {
       })
       .then((data: { message: DashboardData }) => {
         const dashboardData = data.message;
-        console.log(dashboardData);
         setData(dashboardData);
         if (dashboardData.summary.Scores.OverallScore < 10) {
           dashboardData.summary.Scores.OverallScore =
