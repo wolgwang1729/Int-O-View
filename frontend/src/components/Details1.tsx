@@ -189,6 +189,7 @@ export default function Details1() {
               <img className="h-24" src="finalLogo.jpg" />
             </Link>
           </div>
+          <div className="flex items-center justify-center">
           <div
             id="otp-div"
             className="flex-col items-center justify-center hidden h-48 gap-8 w-96"
@@ -240,6 +241,7 @@ export default function Details1() {
                 {verifying ? "Verifying..." : "Verify"}
               </button>
             </div>
+          </div>
           </div>
 
           {/* </OTP> */}
