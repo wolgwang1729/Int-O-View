@@ -12,7 +12,7 @@ load_dotenv()
 
 app = Flask(__name__)
 
-CORS(app, resources={r"/*": {"origins": os.getenv('CLIENT_ORIGIN')}})
+CORS(app, resources={r"/*": {"origins": os.getenv('CLIENT_ORIGIN')}},supports_credentials=True)
 
 UPLOAD_FOLDER = 'ml/public'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
