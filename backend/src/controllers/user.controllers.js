@@ -205,13 +205,18 @@ const callModel = asyncHandler(async (req, res) => {
 const setUser = asyncHandler(async (req, res) => {
   const post = req.body.post;
 
-  await axios.post(
-    `${process.env.FLASK_URL}/setUser`,
-    { post },
-    {
-      withCredentials: true,
-    }
-  );
+  try {
+    await axios.post(
+      `${process.env.FLASK_URL}/setUser`,
+      { post },
+      {
+        withCredentials: true,
+      }
+    );
+  } catch (error) {
+    console.error(error);
+    throw new ApiError(500, error.response.data.message);
+  }
 
   res.json(new ApiResponse(200, {}, 'post set successfully'));
 });
