@@ -25,6 +25,7 @@ function TestRoom() {
   const recogRef: any = useRef(null);
   const historyRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const currentAudioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     if (!("webkitSpeechRecognition" in window)) {
@@ -67,6 +68,13 @@ function TestRoom() {
   }, []);
 
   const startListening = () => {
+    if (currentAudioRef.current) {
+      currentAudioRef.current.pause();
+      currentAudioRef.current.currentTime = 0;
+      currentAudioRef.current = null;
+      setIsGifVisible(false); 
+    }
+    
     if (isListening) {
       setIsListening(false);
       recogRef.current.stop();
@@ -79,6 +87,14 @@ function TestRoom() {
 
   const handleEndInterview = async () => {
     try {
+      // Stop any playing audio
+      if (currentAudioRef.current) {
+        currentAudioRef.current.pause();
+        currentAudioRef.current.currentTime = 0;
+        currentAudioRef.current = null;
+        setIsGifVisible(false); 
+      }
+      
       // Send the `exit` query via a POST request
       await axios.post(`${import.meta.env.VITE_BACKEND_URL}/callModel`, {
         query: "exit",
@@ -91,8 +107,6 @@ function TestRoom() {
       // Handle error as needed (e.g., show an error message)
     }
   };
-
-  let currentAudio: HTMLAudioElement | null = null;
 
   const speakText = async (newResponse: string) => {
     if (newResponse) {
@@ -125,21 +139,21 @@ function TestRoom() {
         }
   
         // Stop the previous audio if it is still playing
-        if (currentAudio) {
-          currentAudio.pause();
-          currentAudio.currentTime = 0; // Reset the audio
+        if (currentAudioRef.current) {
+          currentAudioRef.current.pause();
+          currentAudioRef.current.currentTime = 0; // Reset the audio
         }
   
         const audioUrl = URL.createObjectURL(await res.blob());
   
         // Create new audio and assign it to currentAudio
-        currentAudio = new Audio(audioUrl);
-        currentAudio.play();
+        currentAudioRef.current = new Audio(audioUrl);
+        currentAudioRef.current.play();
   
         setIsGifVisible(true);
-        currentAudio.onended = () => {
+        currentAudioRef.current.onended = () => {
           setIsGifVisible(false);
-          currentAudio = null; // Clear the reference when done
+          currentAudioRef.current = null; // Clear the reference when done
         };
   
       } catch (error) {
@@ -349,11 +363,12 @@ function TestRoom() {
         </div>
 
         {/* Right Section with Conversation History - adjusted height */}
-        <div className="flex flex-col flex-1 p-3 shadow-xl bg-zinc-800 rounded-xl max-w-[450px] bg-opacity-70 backdrop-blur-sm">
+        <div className="flex flex-col flex-1 p-3 shadow-xl bg-zinc-800 rounded-xl max-w-[450px] bg-opacity-70 backdrop-blur-sm max-h-[calc(94vh-2rem)]">
           <h3 className="mb-2 text-lg font-semibold text-white">Conversation History</h3>
           <div 
             ref={historyRef}
             className="flex flex-col p-3 space-y-3 overflow-y-auto flex-1 rounded-xl bg-zinc-700 bg-opacity-50 shadow-inner"
+            style={{ maxHeight: 'calc(100vh - 2rem)' }}
           >
             {conversationHistory.length === 0 ? (
               <div className="flex items-center justify-center h-full text-gray-400 text-sm">

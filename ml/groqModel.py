@@ -109,8 +109,9 @@ def final_dashboard_json():
     Scores: Score details (strict marking).
     """
     conversation_history.append({"role": "user", "content": prompt})
-    completion = client.chat.completions.create(model="gemma2-9b-it",messages=conversation_history)
+    completion = client.chat.completions.create(model="deepseek-r1-distill-llama-70b",messages=conversation_history)
     response_text=thinkRemover(completion.choices[0].message.content)
+    print(response_text)
     dashboardData=response_text
     conversation_history.append({"role": "assistant", "content": response_text})
     return dashboardData
