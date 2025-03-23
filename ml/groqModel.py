@@ -108,12 +108,15 @@ def final_dashboard_json():
     SkillsNeeded: Skills required for the position.
     Scores: Score details (strict marking).
     """
-    conversation_history.append({"role": "user", "content": prompt})
-    completion = client.chat.completions.create(model="deepseek-r1-distill-llama-70b",messages=conversation_history)
-    response_text=thinkRemover(completion.choices[0].message.content)
+    # Create a temporary conversation history
+    temp_conversation = conversation_history.copy()
+    temp_conversation.append({"role": "user", "content": prompt})
+    
+    completion = client.chat.completions.create(model="deepseek-r1-distill-llama-70b", messages=temp_conversation)
+    response_text = thinkRemover(completion.choices[0].message.content)
     print(response_text)
-    dashboardData=response_text
-    conversation_history.append({"role": "assistant", "content": response_text})
+    dashboardData = response_text
+    # Not adding to the original conversation history
     return dashboardData
 
 # Function to get interview responses
