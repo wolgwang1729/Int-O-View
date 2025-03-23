@@ -1,13 +1,13 @@
 # [AI-Based Interviewer](https://int-o-view.vercel.app/)
 
-This project is an AI-based interviewer application designed to simulate a professional interview environment. It leverages two Large Language Models (LLMs) to provide a comprehensive interview experience: Groq for faster inference and ChatGPT-4 for better reference. The application automatically converses with the interviewee and, at the end, provides a detailed dashboard with scores and summaries.
+This project is an AI-based interviewer application designed to simulate a professional interview environment. It leverages two Large Language Models (LLMs) provided by Groq: Gemma2-9b for faster inference and DeepSeek for better reference. The application automatically converses with the interviewee and, at the end, provides a detailed dashboard with scores and summaries.
 
 ## Features
 
 - **Automated Interview Process**: The AI conducts the interview by asking questions, evaluating responses, and providing feedback. This ensures a consistent and unbiased interview process.
-- **Dual LLM Integration**: Utilizes Groq for quick responses and ChatGPT-4 for more detailed and nuanced interactions, combining speed with depth.
+- **Dual LLM Integration**: Utilizes Groq's Gemma2-9b for quick responses and DeepSeek for more detailed and nuanced interactions, combining speed with depth.
 - **Real-Time Conversation**: The AI maintains a conversation history and adapts its questions based on the interviewee's responses, creating a dynamic and interactive interview experience.
-- **AI Interviewer Tailored with Indian Accent**: For seamless interaction and to make the interviewee comfortable, the AI interviewer is tailored to speak with an Indian accent.
+- **AI Interviewer Tailored with Indian Voice**: For seamless interaction and to make the interviewee comfortable, the AI interviewer uses Eleven Labs for voice synthesis, tailored to speak with an Indian voice.
 - **Dashboard Summary**: At the end of the interview, the application generates a detailed summary including scores and key points, providing a comprehensive overview of the candidate's performance.
 
 ## Workflow
@@ -139,3 +139,6 @@ This project is licensed under the MIT License. See the `LICENSE` file for more 
 ## Acknowledgements
 - This was a team project for SIH.
 - [Groq](https://groq.com) for providing the LLM API.
+- [Eleven Labs](https://elevenlabs.io) for providing the voice synthesis API tailored for an Indian voice.
+- [Cloudinary](https://cloudinary.com) for providing media management and optimization services.
+- [MongoDB](https://www.mongodb.com) for providing the database solution for efficient data storage and retrieval.
