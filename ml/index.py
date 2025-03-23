@@ -81,23 +81,46 @@ def setUser():
 
 @app.route('/dashboardData', methods=['GET'])
 def end_interview():
-    summary = final_dashboard_json()
-    clean_text = summary.replace('\\n', '').replace('\\', '')
-
-    # Extract the JSON part from the cleaned text
-    start_index = clean_text.find('{')
-    end_index = clean_text.rfind('}') + 1
-    json_str = clean_text[start_index:end_index]
-    json_str = re.sub(r'//.*', '', json_str)
-    print(json_str)
-
-    # Load the JSON data
     try:
+        summary = final_dashboard_json()
+        clean_text = summary.replace('\\n', '').replace('\\', '')
+
+        # Extract the JSON part from the cleaned text
+        start_index = clean_text.find('{')
+        end_index = clean_text.rfind('}') + 1
+        
+        if start_index == -1 or end_index <= start_index:
+            raise ValueError("Could not find valid JSON content in response")
+            
+        json_str = clean_text[start_index:end_index]
+        json_str = re.sub(r'//.*', '', json_str)
+        print(json_str)
+
+        # Load the JSON data
         data = json.loads(json_str)
-        print(jsonify({"summary": data}))
         return jsonify({"summary": data})
-    except json.JSONDecodeError as e:
-        print("Error decoding JSON:", e)
+    except Exception as e:
+        print(f"Error processing dashboard data: {str(e)}")
+        # Return default JSON with zero values in case of error
+        default_data = {
+            "BasicDetails": {
+                "Name": "XYZ",
+                "Vacancy": "Unknown",
+                "SkillsNeeded": []
+            },
+            "Scores": {
+                "EducationalBackgroundScore": 0,
+                "Experience": 0,
+                "InterpersonalCommunication": 0,
+                "TechnicalKnowledge": 0,
+                "OverallScore": 0
+            },
+            "InterviewSummary": {
+                "PositivePoints": "",
+                "NegativePoints": ""
+            }
+        }
+        return jsonify({"summary": default_data})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=os.getenv('FLASK_PORT'))
