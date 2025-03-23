@@ -67,7 +67,7 @@ class Service{
 
 
         } catch (error) {
-            console.log("Error in uploading resume ")
+            console.log("Error in uploading resume ", error)
             throw error
         }
     }
