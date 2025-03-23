@@ -1,4 +1,4 @@
-# AI-Based Interviewer
+# [AI-Based Interviewer](https://int-o-view.vercel.app/)
 
 This project is an AI-based interviewer application designed to simulate a professional interview environment. It leverages two Large Language Models (LLMs) to provide a comprehensive interview experience: Groq for faster inference and ChatGPT-4 for better reference. The application automatically converses with the interviewee and, at the end, provides a detailed dashboard with scores and summaries.
 
@@ -139,4 +139,3 @@ This project is licensed under the MIT License. See the `LICENSE` file for more 
 ## Acknowledgements
 - This was a team project for SIH.
 - [Groq](https://groq.com) for providing the LLM API.
-- [OpenAI](https://openai.com) for ChatGPT-4 via [OnDemand](https://app.on-demand.io/).
