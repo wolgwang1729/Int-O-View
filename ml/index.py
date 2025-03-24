@@ -118,6 +118,19 @@ def end_interview():
             "InterviewSummary": {
                 "PositivePoints": "",
                 "NegativePoints": ""
+            },
+            "DetailedAssessment": {
+                "RecommendationStatus": "Not Recommended",
+                "ConfidenceLevel": 0,
+                "SkillMatchPercentage": 0,
+                "PersonalityTraits": [],
+                "TechnicalSkillsBreakdown": []
+            },
+            "RecommendedLearningPaths": [],
+            "CultureFitAnalysis": {
+                "TeamworkScore": 0,
+                "AdaptabilityScore": 0,
+                "Summary": ""
             }
         }
         return jsonify({"summary": default_data})

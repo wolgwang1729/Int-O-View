@@ -80,7 +80,7 @@ def final_dashboard_json():
     global dashboardData
     if(dashboardData):
         return dashboardData
-    prompt = """Please provide a summary of the interview using the following JSON format:
+    prompt = """Please provide a comprehensive summary of the interview using the following JSON format:
 
     {
         "BasicDetails": {
@@ -96,8 +96,8 @@ def final_dashboard_json():
             "OverallScore": 0
         },
         "InterviewSummary": {
-            "PositivePoints": "",
-            "NegativePoints": ""
+            "PositivePoints": "Provide DETAILED positive insights (at least 150-200 words) with SPECIFIC EXAMPLES from the interview. For instance: 'The candidate demonstrated strong problem-solving skills when they correctly explained the implementation of X algorithm, providing time complexity analysis. They also showed excellent communication by clearly articulating their past project experiences, specifically when discussing their role in developing Y feature at their previous company...'",
+            "NegativePoints": "Provide DETAILED areas for improvement (at least 150-200 words) with SPECIFIC EXAMPLES from the interview. For instance: 'The candidate struggled with explaining the core concepts of X technology despite listing it as a key skill. When asked about their approach to problem Y, they provided a solution that didn't consider edge cases. Their response to the question about Z lacked depth and demonstrated limited understanding of the fundamental principles...'"
         },
         "DetailedAssessment": {
             "RecommendationStatus": "Recommended/Not Recommended/Consider",
@@ -125,6 +125,7 @@ def final_dashboard_json():
     Vacancy: Position for which the interview was conducted.
     SkillsNeeded: Skills required for the position.
     Scores: Score details (strict marking).
+    InterviewSummary: Provide EXTENSIVE feedback with SPECIFIC EXAMPLES from the conversation. Each point should be thorough and cite actual responses or moments from the interview.
     DetailedAssessment: In-depth analysis with confidence level (0-100), skill match (0-100), key personality traits, and breakdown of technical skills.
     RecommendedLearningPaths: Areas where candidate should improve with suggested resources.
     CultureFitAnalysis: Analysis of teamwork and adaptability scores (0-100) with a brief summary.
