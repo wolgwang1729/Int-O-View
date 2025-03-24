@@ -50,8 +50,12 @@ Here are some images related to the project:
 [1]: https://i.sstatic.net/mdahM6Ds.png
 [2]: https://i.sstatic.net/MBS1ViFp.png
 [3]: https://i.sstatic.net/BH8O4TCz.png
-[4]: https://i.sstatic.net/82tl81uT.png
-[5]: https://i.sstatic.net/TMLw00YJ.png
+[4]: https://i.sstatic.net/zOF0VPy5.png
+[5]: https://i.sstatic.net/Qs0kvUSn.jpg
+
+## Note
+
+The website is running on Render's free servers, so there might be a delay when it is opened after a long time.
 
 ## Video Demonstration
 
