@@ -98,6 +98,24 @@ def final_dashboard_json():
         "InterviewSummary": {
             "PositivePoints": "",
             "NegativePoints": ""
+        },
+        "DetailedAssessment": {
+            "RecommendationStatus": "Recommended/Not Recommended/Consider",
+            "ConfidenceLevel": 0,
+            "SkillMatchPercentage": 0,
+            "PersonalityTraits": ["trait1", "trait2"],
+            "TechnicalSkillsBreakdown": [
+                {"skill": "skill1", "proficiency": 0},
+                {"skill": "skill2", "proficiency": 0}
+            ]
+        },
+        "RecommendedLearningPaths": [
+            {"area": "area to improve", "resources": ["resource1", "resource2"]}
+        ],
+        "CultureFitAnalysis": {
+            "TeamworkScore": 0,
+            "AdaptabilityScore": 0,
+            "Summary": ""
         }
     }
 
@@ -107,6 +125,9 @@ def final_dashboard_json():
     Vacancy: Position for which the interview was conducted.
     SkillsNeeded: Skills required for the position.
     Scores: Score details (strict marking).
+    DetailedAssessment: In-depth analysis with confidence level (0-100), skill match (0-100), key personality traits, and breakdown of technical skills.
+    RecommendedLearningPaths: Areas where candidate should improve with suggested resources.
+    CultureFitAnalysis: Analysis of teamwork and adaptability scores (0-100) with a brief summary.
     """
     # Create a temporary conversation history
     temp_conversation = conversation_history.copy()

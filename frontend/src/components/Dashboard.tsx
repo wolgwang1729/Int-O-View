@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import { PieChart, Pie, Cell, Tooltip, Legend, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from "recharts";
 import html2canvas from "html2canvas";
 import CircularProgressBar from "./CircularProgressBar.tsx";
 
+// Updated interfaces to include new features
 interface BasicDetails {
   Name: string;
   SkillsNeeded: string[];
@@ -22,11 +23,38 @@ interface Scores {
   TechnicalKnowledge: number;
 }
 
+interface TechnicalSkill {
+  skill: string;
+  proficiency: number;
+}
+
+interface LearningPath {
+  area: string;
+  resources: string[];
+}
+
+interface CultureFitAnalysis {
+  TeamworkScore: number;
+  AdaptabilityScore: number;
+  Summary: string;
+}
+
+interface DetailedAssessment {
+  RecommendationStatus: string;
+  ConfidenceLevel: number;
+  SkillMatchPercentage: number;
+  PersonalityTraits: string[];
+  TechnicalSkillsBreakdown: TechnicalSkill[];
+}
+
 interface DashboardData {
   summary: {
     BasicDetails: BasicDetails;
     InterviewSummary: InterviewSummary;
     Scores: Scores;
+    DetailedAssessment?: DetailedAssessment;
+    RecommendedLearningPaths?: LearningPath[];
+    CultureFitAnalysis?: CultureFitAnalysis;
   };
 }
 
@@ -77,7 +105,30 @@ const Dashboard: React.FC = () => {
     );
   }
 
-  const { BasicDetails, InterviewSummary, Scores } = data.summary;
+  const { BasicDetails, InterviewSummary, Scores, DetailedAssessment, RecommendedLearningPaths, CultureFitAnalysis } = data.summary;
+
+  // Prepare data for radar chart
+  const radarData = [
+    { subject: 'Education', A: Scores.EducationalBackgroundScore * 10 },
+    { subject: 'Experience', A: Scores.Experience * 10 },
+    { subject: 'Communication', A: Scores.InterpersonalCommunication * 10 },
+    { subject: 'Technical', A: Scores.TechnicalKnowledge * 10 },
+  ];
+
+  if (CultureFitAnalysis) {
+    radarData.push({ subject: 'Teamwork', A: CultureFitAnalysis.TeamworkScore });
+    radarData.push({ subject: 'Adaptability', A: CultureFitAnalysis.AdaptabilityScore });
+  }
+
+  // Helper function to get recommendation status color
+  const getRecommendationColor = (status: string) => {
+    switch(status?.toLowerCase()) {
+      case 'recommended': return 'bg-green-500';
+      case 'not recommended': return 'bg-red-500';
+      case 'consider': return 'bg-yellow-500';
+      default: return 'bg-blue-500';
+    }
+  };
 
   return (
     <div
@@ -139,6 +190,27 @@ const Dashboard: React.FC = () => {
               ))}
             </div>
           </div>
+          
+          {/* Add recommendation status badge */}
+          {DetailedAssessment && (
+            <div className="mt-4 flex items-center">
+              <span className="text-sm text-gray-400 mr-2">Status:</span>
+              <span className={`px-4 py-1 text-sm font-bold rounded-full text-white ${getRecommendationColor(DetailedAssessment.RecommendationStatus)}`}>
+                {DetailedAssessment.RecommendationStatus}
+              </span>
+              
+              <div className="ml-auto flex items-center">
+                <span className="text-sm text-gray-400 mr-2">Skill Match:</span>
+                <div className="w-32 bg-zinc-700 h-2 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-blue-500 rounded-full"
+                    style={{ width: `${DetailedAssessment.SkillMatchPercentage}%` }}
+                  ></div>
+                </div>
+                <span className="ml-2 text-sm font-bold">{DetailedAssessment.SkillMatchPercentage}%</span>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Assessment Grid */}
@@ -295,6 +367,123 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* New Section: Detailed Assessment */}
+        {DetailedAssessment && (
+          <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+            {/* Technical Skills Breakdown */}
+            <div className="p-6 shadow-xl bg-zinc-800 bg-opacity-70 backdrop-blur-sm rounded-xl">
+              <h2 className="mb-6 text-xl font-semibold border-b border-zinc-700 pb-2">
+                Technical Skills Assessment
+              </h2>
+              <div className="space-y-4">
+                {DetailedAssessment.TechnicalSkillsBreakdown.map((skill, index) => (
+                  <ScoreBar
+                    key={index}
+                    label={skill.skill}
+                    score={skill.proficiency}
+                    color="bg-purple-600"
+                  />
+                ))}
+              </div>
+              
+              {/* Confidence Level */}
+              <div className="mt-8 flex items-center justify-center gap-4">
+                <div className="flex flex-col items-center">
+                  <div className="relative h-24 w-24">
+                    <CircularProgressBar
+                      overallScore={DetailedAssessment.ConfidenceLevel}
+                      maxScore={100}
+                      size={96}
+                    />
+                  </div>
+                  <p className="mt-2 text-sm text-center">Interview Confidence</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Personality Traits and Radar Chart */}
+            <div className="p-6 shadow-xl bg-zinc-800 bg-opacity-70 backdrop-blur-sm rounded-xl">
+              <h2 className="mb-6 text-xl font-semibold border-b border-zinc-700 pb-2">
+                Candidate Profile Analysis
+              </h2>
+              
+              {/* Personality Traits */}
+              <div className="mb-6">
+                <h3 className="mb-3 text-sm font-semibold text-gray-400">PERSONALITY TRAITS</h3>
+                <div className="flex flex-wrap gap-2">
+                  {DetailedAssessment.PersonalityTraits.map((trait, index) => (
+                    <span key={index} className="px-3 py-1 text-xs font-medium bg-indigo-900 bg-opacity-40 text-indigo-300 rounded-full">
+                      {trait}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Radar Chart */}
+              <div className="flex justify-center">
+                <RadarChart outerRadius={90} width={300} height={250} data={radarData}>
+                  <PolarGrid stroke="#444" />
+                  <PolarAngleAxis dataKey="subject" tick={{ fill: '#999' }} />
+                  <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fill: '#999' }} />
+                  <Radar name="Candidate" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+                </RadarChart>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* New Section: Learning Paths and Culture Fit */}
+        {(RecommendedLearningPaths || CultureFitAnalysis) && (
+          <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+            {/* Learning Paths */}
+            {RecommendedLearningPaths && RecommendedLearningPaths.length > 0 && (
+              <div className="p-6 shadow-xl bg-zinc-800 bg-opacity-70 backdrop-blur-sm rounded-xl">
+                <h2 className="mb-6 text-xl font-semibold border-b border-zinc-700 pb-2">
+                  Recommended Learning Paths
+                </h2>
+                <div className="space-y-4">
+                  {RecommendedLearningPaths.map((path, index) => (
+                    <div key={index} className="p-4 bg-zinc-700 bg-opacity-50 rounded-lg">
+                      <h3 className="mb-2 text-md font-semibold text-blue-300">{path.area}</h3>
+                      <ul className="list-disc list-inside space-y-1">
+                        {path.resources.map((resource, idx) => (
+                          <li key={idx} className="text-sm text-gray-300">{resource}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Culture Fit Analysis */}
+            {CultureFitAnalysis && (
+              <div className="p-6 shadow-xl bg-zinc-800 bg-opacity-70 backdrop-blur-sm rounded-xl">
+                <h2 className="mb-6 text-xl font-semibold border-b border-zinc-700 pb-2">
+                  Culture Fit Analysis
+                </h2>
+                
+                <div className="space-y-4">
+                  <ScoreBar
+                    label="Teamwork"
+                    score={CultureFitAnalysis.TeamworkScore}
+                    color="bg-green-500"
+                  />
+                  <ScoreBar
+                    label="Adaptability"
+                    score={CultureFitAnalysis.AdaptabilityScore}
+                    color="bg-yellow-500"
+                  />
+                </div>
+                
+                <div className="mt-6 p-4 bg-zinc-700 bg-opacity-40 rounded-lg">
+                  <p className="text-sm text-gray-300">{CultureFitAnalysis.Summary}</p>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Footer */}
         <div className="mt-8 p-4 text-center text-sm text-gray-400">
