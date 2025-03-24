@@ -450,7 +450,7 @@ const Dashboard: React.FC = () => {
               {/* Confidence Level */}
               <div className="mt-8 flex items-center justify-center gap-4">
                 <div className="flex flex-col items-center">
-                  <div className="relative h-24 w-24">
+                  <div className="relative h-32 w-32"> {/* Increased from h-24 w-24 to accommodate size 120 */}
                     <CircularProgressBar
                       overallScore={DetailedAssessment.ConfidenceLevel}
                       maxScore={100}
@@ -461,6 +461,8 @@ const Dashboard: React.FC = () => {
                   </div>
                 </div>
               </div>
+              {/* Add bottom padding to ensure content doesn't overflow */}
+              <div className="pb-4"></div>
             </div>
 
             {/* Personality Traits and Radar Chart */}

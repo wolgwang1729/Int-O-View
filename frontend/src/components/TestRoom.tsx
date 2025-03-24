@@ -21,6 +21,7 @@ function TestRoom() {
   const [isCameraOn, setIsCameraOn] = useState(false);
   const [isGifVisible, setIsGifVisible] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isEndingInterview, setIsEndingInterview] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const recogRef: any = useRef(null);
   const historyRef = useRef<HTMLDivElement>(null);
@@ -87,6 +88,8 @@ function TestRoom() {
 
   const handleEndInterview = async () => {
     try {
+      setIsEndingInterview(true);
+      
       // Stop any playing audio
       if (currentAudioRef.current) {
         currentAudioRef.current.pause();
@@ -104,6 +107,7 @@ function TestRoom() {
       navigate("/dashboard");
     } catch (error) {
       console.error("Error ending interview:", error);
+      setIsEndingInterview(false); // Reset loading state if there's an error
       // Handle error as needed (e.g., show an error message)
     }
   };
@@ -236,9 +240,17 @@ function TestRoom() {
         </div>
         <button
           onClick={handleEndInterview}
-          className="px-4 py-1 font-mono font-bold text-red-600 transition-all duration-300 bg-white rounded-full shadow-lg hover:bg-red-100 hover:scale-105 active:scale-95 text-sm"
+          disabled={isEndingInterview}
+          className={`px-4 py-1 font-mono font-bold text-red-600 transition-all duration-300 bg-white rounded-full shadow-lg hover:bg-red-100 hover:scale-105 active:scale-95 text-sm ${isEndingInterview ? 'opacity-75 cursor-not-allowed' : ''}`}
         >
-          End Interview
+          {isEndingInterview ? (
+            <div className="flex items-center justify-center">
+              <span className="mr-2">Ending</span>
+              <div className="inline-block w-4 h-4 border-2 border-red-600 border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          ) : (
+            'End Interview'
+          )}
         </button>
       </header>
 
