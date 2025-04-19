@@ -1,11 +1,11 @@
 # [AI-Based Interviewer](https://int-o-view.vercel.app/)
 
-This project is an AI-based interviewer application designed to simulate a professional interview environment. It leverages two Large Language Models (LLMs) provided by Groq: Gemma2-9b for faster inference and DeepSeek for better reference. The application automatically converses with the interviewee and, at the end, provides a detailed dashboard with scores and summaries.
+This project is an AI-based interviewer application designed to simulate a professional interview environment. It leverages two Large Language Models (LLMs) provided by Groq: Gemma2-9b for faster inference and reasoning model qwen qwq for better reference. The application automatically converses with the interviewee and, at the end, provides a detailed dashboard with scores and summaries.
 
 ## Features
 
 - **Automated Interview Process**: The AI conducts the interview by asking questions, evaluating responses, and providing feedback. This ensures a consistent and unbiased interview process.
-- **Dual LLM Integration**: Utilizes Groq's Gemma2-9b for quick responses and DeepSeek for more detailed and nuanced interactions, combining speed with depth.
+- **Dual LLM Integration**: Utilizes Groq's Gemma2-9b for quick responses and reasoning model qwen qwq for more detailed and nuanced interactions, combining speed with depth.
 - **Real-Time Conversation**: The AI maintains a conversation history and adapts its questions based on the interviewee's responses, creating a dynamic and interactive interview experience.
 - **AI Interviewer Tailored with Indian Voice**: For seamless interaction and to make the interviewee comfortable, the AI interviewer uses Eleven Labs for voice synthesis, tailored to speak with an Indian voice.
 - **Dashboard Summary**: At the end of the interview, the application generates a detailed summary including scores and key points, providing a comprehensive overview of the candidate's performance.
