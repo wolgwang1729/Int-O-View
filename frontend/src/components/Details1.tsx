@@ -222,7 +222,11 @@ export default function Details1() {
                     setValue(e, index);
                   }}
                   onKeyDown={(e) => {
-                    moveToAnotherBox(e, index);
+                    if (e.key === 'Enter') {
+                      handleVerify();
+                    } else {
+                      moveToAnotherBox(e, index);
+                    }
                   }}
                   onClick={() => putCursorAtBack(index)}
                   ref={(input) => (inputRefs.current[index] = input)}

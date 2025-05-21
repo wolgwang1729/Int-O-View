@@ -184,6 +184,10 @@ function TestRoom() {
       }
 
       const newResponse = res.data.message;
+      const trimmed = newResponse?.trimStart() ?? "";
+      if (trimmed.startsWith("```json") || trimmed.startsWith("{")) {
+        handleEndInterview();
+      }
       setResponse(newResponse);
       setConversationHistory([
         ...conversationHistory,
