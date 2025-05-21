@@ -57,6 +57,7 @@ interface DetailedAssessment {
   SkillMatchPercentage: number;
   PersonalityTraits: string[];
   TechnicalSkillsBreakdown: TechnicalSkill[];
+  InterviewDuration: number; 
 }
 
 interface DashboardData {
@@ -241,6 +242,13 @@ const Dashboard: React.FC = () => {
                 )}`}
               >
                 {DetailedAssessment.RecommendationStatus}
+              </span>
+              <span className="ml-20 text-sm text-gray-400 mr-2">Interview Duration:</span>
+              <span
+                className={`px-2 py-1 text-sm rounded-full text-white flex gap-2 `}
+              >
+                {DetailedAssessment.InterviewDuration}
+                <div>seconds</div>
               </span>
 
               <div className="ml-auto flex items-center">

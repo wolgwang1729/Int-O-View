@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import os
-from groqModel import get_response,upload_Resume,intitializeInterviewee,final_dashboard_json
+from Agent import get_response,upload_Resume,intitializeInterviewee,final_dashboard_json
 import json
 import re
 from dotenv import load_dotenv
@@ -121,6 +121,7 @@ def end_interview():
             },
             "DetailedAssessment": {
                 "RecommendationStatus": "Not Recommended",
+                "InterviewDuration":0,
                 "ConfidenceLevel": 0,
                 "SkillMatchPercentage": 0,
                 "PersonalityTraits": [],
