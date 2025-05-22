@@ -64,7 +64,7 @@ def web_search(query: str) -> str:
     return {"web_results": formatted_search_docs}
 
 @tool
-def arvix_search(query: str) -> str:
+def arxiv_search(query: str) -> str:
     """Search Arxiv for a query and return maximum 3 result.
     
     Args:
@@ -112,7 +112,7 @@ vector_store = SupabaseVectorStore(
 tools = [
     wiki_search,
     web_search,
-    arvix_search,
+    arxiv_search,
     resume_get,
     exit_tool
 ]
