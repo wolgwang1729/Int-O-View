@@ -42,3 +42,4 @@ requests
 sniffio
 supabase
 wikipedia
+sentence_transformers
