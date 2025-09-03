@@ -48,7 +48,7 @@ def upload_Resume(path):
         {"role": "system", "content": "You are an AI assistant that only sumarises text. You don't say anything apart from the summary."},
         {"role": "user", "content": prompt_message_summary}]
 
-        completion = client.chat.completions.create(model="qwen-qwq-32b",messages=promptMessages)
+        completion = client.chat.completions.create(model="qwen/qwen3-32b",messages=promptMessages)
         response=thinkRemover(completion.choices[0].message.content)
         resumeSummary = response
         build_conversation()
@@ -134,7 +134,7 @@ def final_dashboard_json():
     temp_conversation = conversation_history.copy()
     temp_conversation.append({"role": "user", "content": prompt})
     
-    completion = client.chat.completions.create(model="qwen-qwq-32b", messages=temp_conversation)
+    completion = client.chat.completions.create(model="qwen/qwen3-32b", messages=temp_conversation)
     response_text = thinkRemover(completion.choices[0].message.content)
     print(response_text)
     dashboardData = response_text
