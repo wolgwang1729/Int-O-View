@@ -137,4 +137,5 @@ def end_interview():
         return jsonify({"summary": default_data})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=os.getenv('FLASK_PORT'))
+    port = int(os.getenv("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
