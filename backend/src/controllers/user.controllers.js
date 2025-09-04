@@ -4,11 +4,18 @@ import { ApiResponse } from '../utils/Apiresponse.js';
 import { User } from '../models/user.model.js';
 import { uploadOnCloudinary } from '../utils/cloudinary.js';
 import axios from 'axios';
+import axiosRetry from 'axios-retry';
 import jwt from 'jsonwebtoken';
 import { OtpVerification } from '../models/otpVerification.model.js';
 import { nodemailerService } from '../utils/nodemailer.js';
 import fs from 'fs';
 import FormData from 'form-data';
+
+axiosRetry(axios, {
+  retries: 3,
+  retryCondition: (error) => error.response?.status === 429,
+  retryDelay: axiosRetry.exponentialDelay,
+});
 
 const sendOtp = asyncHandler(async (req, res) => {
   const { email } = req.body;
