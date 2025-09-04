@@ -145,11 +145,11 @@ export default function Details1() {
     if (!isFormValid()) return;
 
     try {
+      setSendingOtp(true);
       const flaskStartResponse = await axios.get(`${import.meta.env.VITE_FLASK_URL}/startServer`);
       console.log('Flask server start response:', flaskStartResponse.data);
 
       dispatch(setDetails({ email, fullName: name, phone: mobile }));
-      setSendingOtp(true);
       await services.sendOtp({ email });
       setSendingOtp(false);
 
