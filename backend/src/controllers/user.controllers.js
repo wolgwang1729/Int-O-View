@@ -14,7 +14,16 @@ import FormData from 'form-data';
 axiosRetry(axios, {
   retries: 3,
   retryCondition: (error) => error.response?.status === 429,
-  retryDelay: axiosRetry.exponentialDelay,
+  retryDelay: (retryCount, error) => {
+    const retryAfter = error.response?.headers['retry-after'];
+    if (retryAfter) {
+      return parseInt(retryAfter, 10) * 1000;
+    }
+    return Math.pow(2, retryCount) * 1000;
+  },
+  onRetry: (retryCount, error) => {
+    console.warn(`Request failed with ${error.response?.status}, retrying #${retryCount}`);
+  },
 });
 
 const sendOtp = asyncHandler(async (req, res) => {
