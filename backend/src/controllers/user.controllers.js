@@ -19,7 +19,8 @@ axiosRetry(axios, {
     if (retryAfter) {
       return parseInt(retryAfter, 10) * 1000;
     }
-    return Math.pow(2, retryCount) * 1000;
+    // On renderfree instance will spin down with inactivity, which can delay requests by 50 seconds so..
+    return 60000;
   },
   onRetry: (retryCount, error) => {
     console.warn(`Request failed with ${error.response?.status}, retrying #${retryCount}`);
