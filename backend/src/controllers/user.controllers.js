@@ -220,18 +220,20 @@ const callModel = asyncHandler(async (req, res) => {
 
 const setUser = asyncHandler(async (req, res) => {
   const post = req.body.post;
+  console.log('setUser payload:', post);
 
   try {
-    await axios.post(
+    const response = await axios.post(
       `${process.env.FLASK_URL}/setUser`,
       { post },
-      {
-        withCredentials: true,
-      }
+      { withCredentials: true }
     );
+    console.log('setUser response from Flask:', response.data);
   } catch (error) {
-    console.error(error);
-    throw new ApiError(500, error.response.data.message);
+    console.error('Error in setUser:', error.response?.data || error.message || error);
+    const message = error.response?.data?.message || error.message || 'Internal server error';
+    const statusCode = error.response?.status || 500;
+    throw new ApiError(statusCode, message);
   }
 
   res.json(new ApiResponse(200, {}, 'post set successfully'));
