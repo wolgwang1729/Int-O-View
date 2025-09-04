@@ -60,6 +60,7 @@ function Details2() {
             withCredentials: true,
           }
         );
+        console.log("Resume and photo are files");
         await services.uploadResume(data.resume);
 
         const copiedUserData = { ...reduxData };
