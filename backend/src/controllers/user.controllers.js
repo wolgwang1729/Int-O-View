@@ -31,6 +31,9 @@ const sendOtp = asyncHandler(async (req, res) => {
   const { email } = req.body;
 
   const otp = Math.floor(Math.random() * 9000 + 1000).toString();
+  
+  const flaskStartResponse = await axios.get(`${process.env.FLASK_URL}/startServer`);
+  console.log('Flask server start response:', flaskStartResponse.data);
 
   const user = await OtpVerification.findOne({ email });
 

@@ -21,6 +21,13 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
+@app.route('/startServer', methods=['GET'])
+def start_server():
+    return jsonify({
+        'message': 'Server started successfully!',
+        'success': True
+    })
+
 @app.route("/predict",methods = ['POST'])
 def predict():
 
