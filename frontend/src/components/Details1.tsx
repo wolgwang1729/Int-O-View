@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import React from "react";
-// import axios from "axios";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../index.css";
 // import styled from "styled-components";
@@ -145,6 +145,9 @@ export default function Details1() {
     if (!isFormValid()) return;
 
     try {
+      const flaskStartResponse = await axios.get(`${import.meta.env.VITE_FLASK_URL}/startServer`);
+      console.log('Flask server start response:', flaskStartResponse.data);
+
       dispatch(setDetails({ email, fullName: name, phone: mobile }));
       setSendingOtp(true);
       await services.sendOtp({ email });
