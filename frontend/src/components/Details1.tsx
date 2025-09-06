@@ -146,7 +146,7 @@ export default function Details1() {
 
     try {
       setSendingOtp(true);
-      const flaskStartResponse = await axios.get(`${import.meta.env.VITE_FLASK_URL}/startServer`);
+      await axios.get(`${import.meta.env.VITE_FLASK_URL}/startServer`);
       console.log('Flask server started')
 
       dispatch(setDetails({ email, fullName: name, phone: mobile }));
