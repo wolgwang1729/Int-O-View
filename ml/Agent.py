@@ -119,14 +119,10 @@ tools = [
 
 # Build graph function
 def build_graph(provider: str = "groq"):
-    """Build the graph"""
-    # Load environment variables from .env file
     if provider == "google":
-        # Google Gemini
         llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0)
     elif provider == "groq":
-        # Groq https://console.groq.com/docs/models
-        llm = ChatGroq(model="gemma2-9b-it", temperature=0) # optional : qwen-qwq-32b gemma2-9b-it
+        llm = ChatGroq(model="gemma2-9b-it", temperature=0) 
     elif provider == "huggingface":
         llm = ChatHuggingFace(
             llm=HuggingFaceEndpoint(
@@ -136,10 +132,8 @@ def build_graph(provider: str = "groq"):
         )
     else:
         raise ValueError("Invalid provider. Choose 'google', 'groq' or 'huggingface'.")
-    # Bind tools to LLM
     llm_with_tools = llm.bind_tools(tools)
 
-    # seed once: only prepend sys_msg if we have no messages yet
     def initializer(state: MessagesState):
         msgs = state["messages"]
         if len(msgs)==1:
@@ -158,18 +152,19 @@ def build_graph(provider: str = "groq"):
         else:
             return {"messages": state["messages"]}
     
-    # Node
     def assistant(state: MessagesState):
         """Assistant node"""
         return {"messages": [llm_with_tools.invoke(state["messages"])]}
     
 
     builder = StateGraph(MessagesState)
+    # Nodes
     builder.add_node("initializer", initializer)
     builder.add_node("retriever", retriever)
     builder.add_node("assistant", assistant)
     builder.add_node("tools", ToolNode(tools))
 
+    # Edges
     builder.add_edge(START, "initializer")
     builder.add_edge("initializer", "retriever")
     builder.add_edge("retriever", "assistant")
@@ -204,12 +199,12 @@ def upload_Resume(path):
                 text += page.extract_text()
 
         resumeText = text
-        build_conversation()
 
 # Set up interview context
 def intitializeInterviewee(post):
     global vacancy
     vacancy = post
+    build_conversation()
 
 def build_conversation():
     global vacancy, resumeText, graph, sys_msg, messages, conversation_history,startTime
