@@ -1,11 +1,12 @@
 import {Router} from 'express'
-import { callModel, createUser, sendOtp, uploadResume, verifyOtp, setUser, getDashboardData } from '../controllers/user.controllers.js'
+import { rebootServer, callModel, createUser, sendOtp, uploadResume, verifyOtp, setUser, getDashboardData } from '../controllers/user.controllers.js'
 import {isAuthenticated } from '../middlewares/auth.middleware.js'
 import { upload } from '../middlewares/multer.middleware.js'
 import { get } from 'http'
 
 const router = Router()
 
+router.route("/rebootServer").get(rebootServer)
 router.route("/sendOtp").post(sendOtp)
 router.route("/verifyOtp").post(verifyOtp)
 
