@@ -27,6 +27,10 @@ axiosRetry(axios, {
   },
 });
 
+const rebootServer = asyncHandler(async (req, res) => {
+  return res.status(200).json({ message: 'Server is running' });
+})
+
 const sendOtp = asyncHandler(async (req, res) => {
   const { email } = req.body;
 
@@ -256,4 +260,4 @@ const getDashboardData = asyncHandler(async (req, res) => {
   });
 });
 
-export { callModel, createUser, sendOtp, verifyOtp, uploadResume, setUser, getDashboardData };
+export { rebootServer, callModel, createUser, sendOtp, verifyOtp, uploadResume, setUser, getDashboardData };
