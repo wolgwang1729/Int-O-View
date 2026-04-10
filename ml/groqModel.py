@@ -149,10 +149,11 @@ def get_response(user_input):
         conversation_history.append({"role": "user", "content": user_input})
     
     try:
-        completion = client.chat.completions.create(model="gemma2-9b-it",messages=conversation_history)
+        completion = client.chat.completions.create(model="openai/gpt-oss-120b",messages=conversation_history)
         response_text=thinkRemover(completion.choices[0].message.content)
         conversation_history.append({"role": "assistant", "content": response_text})
         return response_text
     except Exception as e:
-        return "oops error"
+        print(f"Error in groq model: {str(e)}")
+        return f"LLM Backend Error: {str(e)}"
 

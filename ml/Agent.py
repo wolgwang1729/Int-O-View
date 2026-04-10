@@ -312,5 +312,5 @@ def get_response(user_input):
         return response_text
     except Exception as e:
         print(f"Error: {str(e)}")
-        return "oops error"
+        return f"LLM Backend Error: {str(e)}"
 
