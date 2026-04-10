@@ -116,8 +116,9 @@ function TestRoom() {
     if (newResponse) {
       try {
         console.log(newResponse);
-        const apiKey = `${import.meta.env.VITE_ELEVEN_LAB_KEY}`;
-        const url = 'https://api.elevenlabs.io/v1/text-to-speech/MF4J4IDTRo0AxOO4dpFR';
+        const apiKey = import.meta.env.VITE_ELEVEN_LAB_KEY";
+        const url = 'https://api.elevenlabs.io/v1/text-to-speech/EXAVITQu4vr4xnSDxMaL';
+        // Hindi audio MF4J4IDTRo0AxOO4dpFR is no longer available in free tier
   
         const options = {
           method: 'POST',
