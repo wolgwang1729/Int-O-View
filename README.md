@@ -39,7 +39,7 @@ This AI interviewer agent is built using LangChain and LangGraph to orchestrate 
    - Uses `StateGraph` from LangGraph to define nodes and edges.
    - Orchestrates message flow through three main nodes: initializer, retriever, and assistant, plus a tools node.
 
-  ![Agent Workflow Diagram](https://i.sstatic.net/1xzIR3Lo.png)
+  ![Agent Workflow Diagram](assets/agent-workflow-diagram.png)
 
 2. **Nodes**
    - **Initializer**  
@@ -90,13 +90,13 @@ Here are some images related to the project:
 
 ![Image 5][5]
 
-![Model Workflow](https://i.sstatic.net/WWJt9AwX.png)
+![Model Workflow](assets/model-workflow.png)
 
-[1]: https://i.sstatic.net/mdahM6Ds.png
-[2]: https://i.sstatic.net/MBS1ViFp.png
-[3]: https://i.sstatic.net/BH8O4TCz.png
-[4]: https://i.sstatic.net/zOF0VPy5.png
-[5]: https://i.sstatic.net/Qs0kvUSn.jpg
+[1]: assets/intoview-gallery-1.png
+[2]: assets/intoview-gallery-2.png
+[3]: assets/intoview-gallery-3.png
+[4]: assets/intoview-gallery-4.png
+[5]: assets/intoview-gallery-5.jpg
 
 ## Note
 
